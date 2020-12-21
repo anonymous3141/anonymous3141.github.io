@@ -1,13 +1,11 @@
-## Welcome to GitHub Pages
+## My Blog
 
-You can use the [editor on GitHub](https://github.com/anonymous3141/anonymous3141.github.io/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
+Hey there, thanks for visiting my blog :) I'm Junhua, an Australian computer science and maths enthusiast who just graduated high school (as of December 2020). Thus far, my main exposure to CS and maths is through olympiads. I represented Australia in the IOI (international olympiad in informatics) and also did well in the Australia Maths Olympiad (AMO). However, I'm really excited to explore a wider range of CS and Maths tools and their applications. You will find my explorations, as well as good olympiad competitive programming ideas on this blog (and maybe some other stuff too UwU). Anyway, good to meet you (>w<) 
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
+### Informatics stuff (competitive programming)
+[//]: # (Lmao this is how you do markdown)
+21/12/2020: [Algorithms on tree] (https://guides.github.com/features/mastering-markdown/)
+[//]: # (
 ```markdown
 Syntax highlighted code block
 
@@ -34,4 +32,4 @@ Your Pages site will use the layout and styles from the Jekyll theme you have se
 
 ### Support or Contact
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.)
