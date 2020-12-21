@@ -6,4 +6,4 @@ Hey there, thanks for visiting my blog :) I'm Junhua, an Australian computer sci
 ~~Not everyone has a girlfriend to brag to~~ Why not?
 ### Informatics stuff (competitive programming)
 [//]: # (Lmao this is how you do markdown)
-21/12/2020: [Algorithms on tree](https://anonymous3141.github.io/informatics/tree1)
+21/12/2020: [Algorithms on tree](https://anonymous3141.github.io/informatics/Tree1)
