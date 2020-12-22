@@ -7,6 +7,7 @@ Hey there, thanks for visiting my blog :) I'm Junhua, an Australian computer sci
 ### Informatics stuff (competitive programming)
 [//]: # (Lmao this is how you do markdown)
 21/12/2020: [Algorithms on tree](https://anonymous3141.github.io/informatics/Tree1)
+TODO: The ICC-trick and its various intepretations
 
 ### Notes of a machine learning beginner
 I decided to start learning keras to do some basic ML. This is where I place my notes.
