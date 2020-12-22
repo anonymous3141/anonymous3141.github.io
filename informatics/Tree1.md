@@ -21,7 +21,8 @@ If the paths share an edge the logic also falls out similarly.
 ### Applications of the two lemmas.
 Arguably, Lemma 2 is the more useful of the two. Lets consider two problems.  
 
-**Problem 1** Module task: Given hidden tree of N nodes, you can query distance between two points. Find the length of the diameter in 2N queries. 
+**Problem 1** Module task: Given hidden tree of N nodes, you can query distance between two points. Find the length of the diameter in 2N queries.   
+
 **Answer:** Trivial application of lemma 2.
 
 **Problem 2** Given unweighted tree construct permutation of nodes $v_1 ... v_N$ such that $d(v_i,v_{i+1})\geq d(v_{i+1}, v_{i+2})$.  
