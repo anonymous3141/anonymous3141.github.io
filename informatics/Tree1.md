@@ -69,3 +69,11 @@ Job scheduling
 Pair programming
 
 ## HLD
+
+## General Problems
+- Baltic OI 2020 Day 2 Village
+- ACIO 2020 Open Contest Black Panthers
+- ACIO 2020 Open Contest Vibe Check
+- IOI 2018 Highway Tolls
+- CEOI 2019 Magic Tree
+- IOI 2019 Practice Contest Job Scheduling
