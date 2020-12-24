@@ -93,7 +93,7 @@ This elegantly applies LCA. Rooting the tree at 1, we note that any node which d
 
 Thus, we can effortlessly find the important nodes of the virtual tree, and it remains to link them up. We can do this by sweeping nodes by depth from high to low. Maintain a map keyed by euler order. When a node is encountered delete the nodes in the map contained by the interval it covers and set them as its children, being conscious of the edge lengths (take difference in depth). Then insert the node itself into the map. 
 
-![From Tree to RMQ](https://anonymous3141.github.io/informatics/visuals/tree1/lca rmq.png)
+![From Tree to RMQ](https://anonymous3141.github.io/informatics/visuals/tree1/lca%20rmq.png)
 
 *Turning Tree to RMQ*
 
