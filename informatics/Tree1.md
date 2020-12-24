@@ -68,7 +68,11 @@ Centroid decomposition has other applications too, such as:
 
 ## Virtual Tree
 The whole concept of virtual tree centres around the following fact:
+
+
 **Fact:** Given a tree $\mathcal{T}$ and $K$ paths on this tree, the union of these paths' edges results in a subgraph with $O(K)$ nodes having a degree other than 2.
+
+
 **Proof of fact:** Let Proceeding inductively, lets add the paths one by one to the subgraph, under the assumption that the subgraph takes the shape of a tree (if the end subgraph is a tree, then such a sequence must exist). Each path crosses the subgraph at most twice (otherwise there would be a cycle) by entering then leaving the subgraph. Thus all we do by adding the path is adding two branches to the tree. We leave the reader to formalise this into a proof.
 ![Virtual Tree](https://anonymous3141.github.io/informatics/visuals/tree1/virtual-tree.svg)
 *The virtual tree of black nodes is to the right*
