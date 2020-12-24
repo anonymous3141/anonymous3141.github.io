@@ -1,10 +1,11 @@
 {% include head.html %}
 # Algorithms regarding to Trees
 Trees is one of the greatest areas in graph theory covered in informatics contests, and is increasing in popularity rapidly. In this blog we cover some tree algorithms.
-### Notation
-Let $\mathcal{T}$ denote a Tree
+### Notes
+- Let $\mathcal{T}$ denote a Tree
+- Familiarity is assumed with fundamental algorithms of trees like LCA and important principles like Euler tour and diameter.
 ## Two Lemmas on the diameter
-1. Ifnode sets $X$ and $Y$ are diameters of a tree, then $X\cap Y\neq \emptyset$.
+1. If node sets $X$ and $Y$ are diameters of a tree, then $X\cap Y\neq \emptyset$.
 2. For any node $v\in \mathcal{T}$, the furthest node $u$ from $v$ is the endpoint of at least 1 diameter path.
 
 We Prove these lemmas Here.
@@ -64,9 +65,26 @@ Dynamic Diameter (CEOI20)
 JOI2020 Capital City
 
 ## Virtual Tree
+The whole concept of virtual tree centres around the following fact:
 
+**Fact:** Given a tree $\mathcal{T}$ and $K$ paths on this tree, the union of these paths' edges results in a subgraph with $O(K)$ nodes having a degree other than 2.
+**Proof of fact:** Let Proceeding inductively, lets add the paths one by one to the subgraph, under the assumption that the subgraph takes the shape of a tree (if the end subgraph is a tree, then such a sequence must exist). Each path crosses the subgraph at most twice (otherwise there would be a cycle) by entering then leaving the subgraph. Thus all we do by adding the path is adding two branches to the tree. We leave the reader to formalise this into a proof.
+
+**Applications:** Given problems that involve paths on a tree, virtual tree lets us consider subsets of these paths in isolation in good time. Let us consider the following problem: 
+
+**Problem:** Given tree of $N$ nodes, answer $Q$ queries of the form; Given a set of paths on this tree, deduce the diameter of the subgraph resulting from the union of these paths. The sum of the number of paths over all query is $K$.
+
+**Solution:** To Achieve $O((N+K)logN)$ complexity the problem reduces down really to building the virtual trees (forest) per query, compressing sequences of degree two nodes on the path down to weighted paths, then finally running the standard diameter algorithm on the tree. Thus the problem boils down to constructing virtual trees efficiently. Let us consider the following psuedocode:
+```
+Let v[1 ... n] be the endpoints of the paths for which we wish to construct virtual tree
+sort v[1 ... n] in preorder sequence
+//observe that v[1] and v[2] must be connected
+```
 ## Greedy algorithms and small merge
-Job scheduling
+-Job scheduling
+-Pushing stuff up through subtree
+## Sibling dp
+
 ## Shaving off leaves and applications to edge matching
 Pair programming
 
@@ -76,7 +94,10 @@ Pair programming
 - Baltic OI 2020 Day 2 Village
 - ACIO 2020 Open Contest Black Panthers
 - ACIO 2020 Open Contest Vibe Check
-- IOI 2018 Highway Tolls
+- CEOI 2020 Spring cleaning
 - CEOI 2019 Magic Tree
+- BOI 2015 Network
 - IOI 2019 Practice Contest Job Scheduling
+- IOI 2018 Highway Tolls
 - IOI 2013 Dream
+- IOI 2011 Race
