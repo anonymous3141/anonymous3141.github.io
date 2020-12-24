@@ -72,14 +72,26 @@ The whole concept of virtual tree centres around the following fact:
 
 **Applications:** Given problems that involve paths on a tree, virtual tree lets us consider subsets of these paths in isolation in good time. Let us consider the following problem: 
 
-**Problem:** Given tree of $N$ nodes, answer $Q$ queries of the form; Given a set of paths on this tree, deduce the diameter of the subgraph resulting from the union of these paths. The sum of the number of paths over all query is $K$.
+**Problem:** Given tree of $N$ nodes, answer $Q$ queries of the forms; 
+- Given a set of paths on this tree, deduce the diameter of the subgraph resulting from the union of these paths. 
+- Given a set of points on this tree, deduce the furtherest pair of points apart
 
-**Solution:** To Achieve $O((N+K)logN)$ complexity the problem reduces down really to building the virtual trees (forest) per query, compressing sequences of degree two nodes on the path down to weighted paths, then finally running the standard diameter algorithm on the tree. Thus the problem boils down to constructing virtual trees efficiently. Let us consider the following psuedocode:
-```
-Let v[1 ... n] be the endpoints of the paths for which we wish to construct virtual tree
-sort v[1 ... n] in preorder sequence
-//observe that v[1] and v[2] must be connected
-```
+The sum of the number of paths and points over all queries is $K$.
+
+**Solution:** To Achieve $O((N+K)logN)$ complexity the problem reduces down really to building the virtual trees (forest) per query, compressing sequences of degree two "important" (not degree 2) nodes on the trees down to weighted paths, then finally running the standard diameter algorithm on the tree. Thus the problem boils down to constructing virtual trees efficiently. Now we discuss the construction of the virtual forest henceforth in 2 approaches.
+
+**Approach 1: for set of points**
+
+This elegantly applies LCA. Rooting the tree at 1, we note that any node which does not have degree 2 is the LCA of two of the nodes. We consider the following claim..  
+*Lemma:* Consider the nodes $v_1 ... v_n$ in euler ordering (taking first occurrence of each label). Then for any $(x,y)$ there exist $z$ that $LCA(v_x,v_y)=LCA(v_z,v_{z+1})$. 
+*Proof:* Map the tree into an array of integers, where the index key is the position on euler ordering and index value is the depth of the node in that position. Then $v_l=LCA(v_x,v_y)$ corresponds to the node that is the result of $rangeminquery(pos(v_x), pos(v_y))$. Consider the nodes immediately to left and right of $v_l$ on the euler ordering. Then it follows that the LCA of these nodes is also $v_l$ by property of RMQ, as these nodes are necessarily enclosed by the interval $(pos(v_x), pos(v_y))$ as required.
+
+Thus, we can effortlessly find the important nodes of the virtual tree, and it remains to link them up. We can do this by sweeping nodes by depth from high to low. Maintain a map keyed by euler order. When a node is encountered delete the nodes in the map contained by the interval it covers and set them as its children, being conscious of the edge lengths (take difference in depth). Then insert the node itself into the map. 
+<insert figure>
+  
+**Approach 2: for set of paths**
+If we merely build the virtual tree for the set of path endpoints, then it must be that the actual virtual forest is a subset of the edges of this virtual tree. We simply must mark the edges which are relevant within this virtual tree. Thus we have the problem of being given the virtual tree of n nodes and calculating the union of paths on the tree in $\textbf{\tild{O}(n)}$. Lets assume all paths go from ancestor (head) to descendant (tail) (otherwise split each path in two at the LCA). Euler traverse the tree, and when the head of a path is encountered insert the tail to a set that is keyed by euler tour. To decide whether an edge is on we merely have to check if there is an active node within the subtree of the edge. Now each path's tail is only inserted and deleted once, so complexity is $O(nlogn)$. 
+<insert figure>
 ## Greedy algorithms and small merge
 -Job scheduling
 -Pushing stuff up through subtree
