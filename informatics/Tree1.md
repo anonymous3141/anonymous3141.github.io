@@ -62,12 +62,13 @@ Centroid decomposition has other applications too, such as:
 - Setting up a tree for pairing style problems where a majority is undesirable
 
 **Problems to ponder**
-Dynamic Diameter (CEOI20)
-JOI2020 Capital City
+
+- Dynamic Diameter (CEOI20)
+- JOI2020 Capital City
 
 ## Virtual Tree
 The whole concept of virtual tree centres around the following fact:
-
+![Virtual Tree](https://anonymous3141.github.io/informatics/visuals/tree1/virtual-tree.svg)
 **Fact:** Given a tree $\mathcal{T}$ and $K$ paths on this tree, the union of these paths' edges results in a subgraph with $O(K)$ nodes having a degree other than 2.
 **Proof of fact:** Let Proceeding inductively, lets add the paths one by one to the subgraph, under the assumption that the subgraph takes the shape of a tree (if the end subgraph is a tree, then such a sequence must exist). Each path crosses the subgraph at most twice (otherwise there would be a cycle) by entering then leaving the subgraph. Thus all we do by adding the path is adding two branches to the tree. We leave the reader to formalise this into a proof.
 
@@ -88,6 +89,7 @@ This elegantly applies LCA. Rooting the tree at 1, we note that any node which d
 *Proof:* Map the tree into an array of integers, where the index key is the position on euler ordering and index value is the depth of the node in that position. Then $v_l=LCA(v_x,v_y)$ corresponds to the node that is the result of $rangeminquery(pos(v_x), pos(v_y))$. Consider the nodes immediately to left and right of $v_l$ on the euler ordering. Then it follows that the LCA of these nodes is also $v_l$ by property of RMQ, as these nodes are necessarily enclosed by the interval $(pos(v_x), pos(v_y))$ as required.
 
 Thus, we can effortlessly find the important nodes of the virtual tree, and it remains to link them up. We can do this by sweeping nodes by depth from high to low. Maintain a map keyed by euler order. When a node is encountered delete the nodes in the map contained by the interval it covers and set them as its children, being conscious of the edge lengths (take difference in depth). Then insert the node itself into the map. 
+
 INSERT FIGURE
   
 **Approach 2: for set of paths**
