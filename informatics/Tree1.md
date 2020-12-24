@@ -68,9 +68,12 @@ Centroid decomposition has other applications too, such as:
 
 ## Virtual Tree
 The whole concept of virtual tree centres around the following fact:
-![Virtual Tree](https://anonymous3141.github.io/informatics/visuals/tree1/virtual-tree.svg)
 **Fact:** Given a tree $\mathcal{T}$ and $K$ paths on this tree, the union of these paths' edges results in a subgraph with $O(K)$ nodes having a degree other than 2.
 **Proof of fact:** Let Proceeding inductively, lets add the paths one by one to the subgraph, under the assumption that the subgraph takes the shape of a tree (if the end subgraph is a tree, then such a sequence must exist). Each path crosses the subgraph at most twice (otherwise there would be a cycle) by entering then leaving the subgraph. Thus all we do by adding the path is adding two branches to the tree. We leave the reader to formalise this into a proof.
+![Virtual Tree](https://anonymous3141.github.io/informatics/visuals/tree1/virtual-tree.svg)
+*The virtual tree of black nodes is to the right*
+
+
 
 **Applications:** Given problems that involve paths on a tree, virtual tree lets us consider subsets of these paths in isolation in good time. Let us consider the following problem: 
 
@@ -90,12 +93,17 @@ This elegantly applies LCA. Rooting the tree at 1, we note that any node which d
 
 Thus, we can effortlessly find the important nodes of the virtual tree, and it remains to link them up. We can do this by sweeping nodes by depth from high to low. Maintain a map keyed by euler order. When a node is encountered delete the nodes in the map contained by the interval it covers and set them as its children, being conscious of the edge lengths (take difference in depth). Then insert the node itself into the map. 
 
-INSERT FIGURE
+![From Tree to RMQ](https://anonymous3141.github.io/informatics/visuals/tree1/lca rmq.png)
+
+*Turning Tree to RMQ*
+
   
 **Approach 2: for set of paths**
 
 If we merely build the virtual tree for the set of path endpoints, then it must be that the actual virtual forest is a subset of the edges of this virtual tree. We simply must mark the edges which are relevant within this virtual tree. Thus we have the problem of being given the virtual tree of n nodes and calculating the union of paths on the tree in $\tilde{O}(n)$. Lets assume all paths go from ancestor (head) to descendant (tail) (otherwise split each path in two at the LCA). Euler traverse the tree, and when the head of a path is encountered insert the tail to a set that is keyed by euler tour. To decide whether an edge is on we merely have to check if there is an active node within the subtree of the edge. Now each path's tail is only inserted and deleted once, so complexity is $O(nlogn)$. 
-INSERT FIGURE
+![Euler tour sweep](https://anonymous3141.github.io/informatics/visuals/tree1/eulertour.png)
+
+*The euler tour sweep*
 
 
 
