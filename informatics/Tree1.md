@@ -35,7 +35,9 @@ at each iteration of the algorithm the diameter of the tree is nonincreasing. Fu
 
 ## Centres of the Tree
 There are several important points in every tree
+
 **Centroid:** This node minimises the sum of distances to every other node in the tree, and also has many other useful properties
+
 **Centre of tree:** Minimises the depth of the tree if rooted at it. Found by taking the midpoint of the diameter. A tree has one or two centres.
 
 We will not in depth cover the Centre, but focus on Centroid.
@@ -47,14 +49,15 @@ In addition to minimising the sum of distances, the centroid splits the tree int
 
 **Applications:**
 The main application for centroids is *centroid decomposition*. Effectively, we find the centroid, remove it and recursively apply the process onto the resulting subtrees. It is equivalent to divide and conquer on tree, and facilitates many effective algorithms for interactive and data structure problems.
+
 **Example:** Maintain weighted tree with edge updates, after each update find diameter length.  
 
 **Solution:** Consider the set of trees $\mathcal{S}$ produced by the centroid decomposition (i.e the original tree, the trees produced by the deletion of the first centroid, the second, etc). The total size of these trees is $O(NlogN)$ by the divide and conquer procedure. In this procedure, the intact diameter path must pass through the centroid of at least one of these trees. Thus by rooting each of the trees in $\mathcal{S}$ at the centroid of each tree, we only need to consider the paths passing through the root of each centroid tree and take the maximum overall. This can be maintained with lazy proprogation segment tree. When updates happen, we update the centroid trees of the $O(logN)$ centroid trees containing that edge. 
 
 This demonstrates the key idea of centroid decomposition, that every path passes through a centroid in some centroid tree. 
 Centroid decomposition has other applications too, such as:
-(1) Binary search on Tree
-(2) Setting up a tree for pairing style problems where a majority is undesirable
+- Binary search on Tree
+- Setting up a tree for pairing style problems where a majority is undesirable
 
 **Problems to ponder**
 Dynamic Diameter (CEOI20)
