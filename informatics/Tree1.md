@@ -9,6 +9,7 @@ Trees is one of the greatest areas in graph theory covered in informatics contes
 2. For any node $v\in \mathcal{T}$, the furthest node $u$ from $v$ is the endpoint of at least 1 diameter path.
 
 We Prove these lemmas Here.
+
 **Proof (1):**
 
 We proceed constructively. Consider a midpoint of one of the diameters X (i.e a middle node in the path). If this midpoint is not also a midpoint of the other diameter then we can form a longer path by connecting one of the halves of X to a part of Y. We leave the details to the reader. This midpoint is called the *centre*.
