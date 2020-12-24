@@ -4,13 +4,12 @@ Trees is one of the greatest areas in graph theory covered in informatics contes
 ### Notation
 Let $\mathcal{T}$ denote a Tree
 ## Two Lemmas on the diameter
-1. If edge sets $X$ and $Y$ are diameters of a tree, then $X\cap Y\neq \emptyset$.
+1. Ifnode sets $X$ and $Y$ are diameters of a tree, then $X\cap Y\neq \emptyset$.
 2. For any node $v\in \mathcal{T}$, the furthest node $u$ from $v$ is the endpoint of at least 1 diameter path.
 
 We Prove these lemmas Here.
 ### Proof (1):
-We proceed by contradiction. If indeed $X\cap Y= \emptyset$ then let the endpoints of the paths $X$,$Y$ be $a,b,c,d$. 
-It can be seen without too much work that one of the paths between two of $a,b,c,d$ is longer than $X$ and $Y$ respectively. 
+We proceed constructively. Consider a midpoint of one of the diameters X (i.e a middle node in the path). If this midpoint is not also a midpoint of the other diameter then we can form a longer path by connecting one of the halves of X to a part of Y. We leave the details to the reader. This midpoint is called the *centre*.
 
 ### Proof (2):
 Suppose $A,B$ are the endpoint of a diameter and WLOG $d(v,A)\leq d(v,B)\leq d(v,u)$. Rooting the tree at $v$, consider $C$ 
@@ -31,8 +30,8 @@ Arguably, Lemma 2 is the more useful of the two. Lets consider two problems.
 at each iteration of the algorithm the diameter of the tree is nonincreasing. Further, we prove inductively that at each iteration the node we currently occupy is an endpoint of at least 1 diameter on the tree. Lets suppose that from $x$ we go to $y$. Then $xy$ is a diameter path clearly by definition. Now from $y$ we can at least guarantee a diameter of $d(x,y)-1$ by going from $y$ to the second node in the path from $x$ to $y$. If there still exist a path of length $d(x,y)$ then it must share an node with the path $xy$ by Lemma 1. As such when the tree is rerooted at $y$ the endpoints of the previous diameter become accessible to $y$ and we will jump to there instead.
 
 **Problems to ponder:**
-APIO 2020 Fun tour  
-IOI 2015 Towns
+- APIO 2020 Fun tour  
+- IOI 2015 Towns
 
 ## Centres of the Tree
 There are several important points in every tree
@@ -77,3 +76,4 @@ Pair programming
 - IOI 2018 Highway Tolls
 - CEOI 2019 Magic Tree
 - IOI 2019 Practice Contest Job Scheduling
+- IOI 2013 Dream
