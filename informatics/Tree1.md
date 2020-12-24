@@ -95,9 +95,7 @@ If we merely build the virtual tree for the set of path endpoints, then it must 
 INSERT FIGURE
 
 **Summary Pseudocode**
-```
-INPUT paths $\{(u_1,v_1) ... (u_n, v_n)\}$, tree $\mathcal{T}$
-```
+
 
 ## Greedy algorithms and small merge
 -Job scheduling
