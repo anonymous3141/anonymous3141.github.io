@@ -101,7 +101,7 @@ INPUT paths $\{(u_1,v_1) ... (u_n, v_n)\}$, tree $\mathcal{T}$
 
 ## Greedy algorithms and small merge
 -Job scheduling
--Pushing stuff up through subtree
+-Pushing stuff up through subtree (e.g that atcoder problem, spring cleaning)
 ## Sibling dp
 
 ## Shaving off leaves and applications to edge matching
