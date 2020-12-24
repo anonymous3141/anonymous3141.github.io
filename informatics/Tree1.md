@@ -94,7 +94,6 @@ INSERT FIGURE
 If we merely build the virtual tree for the set of path endpoints, then it must be that the actual virtual forest is a subset of the edges of this virtual tree. We simply must mark the edges which are relevant within this virtual tree. Thus we have the problem of being given the virtual tree of n nodes and calculating the union of paths on the tree in $\tilde{O}(n)$. Lets assume all paths go from ancestor (head) to descendant (tail) (otherwise split each path in two at the LCA). Euler traverse the tree, and when the head of a path is encountered insert the tail to a set that is keyed by euler tour. To decide whether an edge is on we merely have to check if there is an active node within the subtree of the edge. Now each path's tail is only inserted and deleted once, so complexity is $O(nlogn)$. 
 INSERT FIGURE
 
-**Summary Pseudocode**
 
 
 ## Greedy algorithms and small merge
