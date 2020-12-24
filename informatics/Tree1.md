@@ -42,7 +42,7 @@ There are several important points in every tree
 
 We will not in depth cover the Centre, but focus on Centroid.
 
-**Properties of Centroid**
+**Property of Centroid:**
 In addition to minimising the sum of distances, the centroid splits the tree into subtrees, none of which have more nodes than half the side of the tree. 
 
 **Proof:** Suppose otherwise, then if we shift the centroid towards subtree with the majority of the nodes then we reduce distance sum. We can use this of thus construct the centroid by starting at a leaf and repeatedly walking in a direction that minimises distance sum.
