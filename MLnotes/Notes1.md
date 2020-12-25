@@ -1,3 +1,4 @@
+{% include head.html %}
 ## What resources am I using? 
 Deep Learning with Python - Chollet
 Deep Learning book - Goodfellow, Bengio, Courville
