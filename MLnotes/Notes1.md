@@ -8,12 +8,12 @@ Google colab for experimentation
 **Machine learning** - subset of AI. The computer builds models of training instances of a problem which is then applied to solve other instances of problem.
 
 ## Types of ML
-**Supervised:** Program is given input and output pairs and learns the model this way.
+- **Supervised:** Program is given input and output pairs and learns the model this way.
   - **Classification problem:** The output domain is discrete (e.g the set {0,1}). Problems include digit recognition
   - **Regression problem:** The output is $\mathbb{R}^k$. Problems include many physics things like experimentally finding friction coefficient
-**Reinforced learning:** Program is given input, and feedback in form of reward function based on its output. I suppose Neural Nets are a form of this.
-**Unsupervised learning:** Program is given inputs but not expected outputs, and is left to make sense of patterns in data.
-  - Clustering is an example of this
+- **Reinforced learning:** Program is given input, and feedback in form of reward function based on its output. I suppose Neural Nets are a form of this.
+- **Unsupervised learning:** Program is given inputs but not expected outputs, and is left to make sense of patterns in data.
+  - **Clustering** is an example of this
   
 ## Big ideas in ML
 LMAO how am I supposed to know I've read about 5 hours of this.
