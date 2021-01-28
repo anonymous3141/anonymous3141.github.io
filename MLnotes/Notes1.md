@@ -2,7 +2,9 @@
 {% include head.html %}
 ## What resources am I using? 
 Deep Learning with Python - Chollet
+
 Deep Learning book - Goodfellow, Bengio, Courville
+
 Google colab for experimentation
 
 ## Definitions I guess
@@ -31,12 +33,12 @@ Has intuition about whats useful
 It solves the regression problem of modelling a set of points $\{(x_1,y_1) ... (x_N,y_N)\}$ with a degree $n$ polynomial $P(x) = \sum_{i=0}^{n} a_i x^i$ where $n << N$ (otherwise we **overfit**). We aim to make the model accurate by minimising $\sum_{i=1}^n (P(x_i)-y_i)^2$.
 
 We find the optimal polynomial by linear algebra. So consider a matrix 
-$$A=  \begin{bmatrix}
+$A=  \begin{bmatrix}
     1 & x_1 & x_1^2 & ... & x_1^n \\
     1 & x_2 & x_2^2 & ... & x_2^n \\
     ... \\
     1 & x_N & x_N^2 & ... & x_N^n 
-  \end{bmatrix}$$
+  \end{bmatrix}$
 and vector 
 $$b =\begin{bmatrix}
 y_1\\
