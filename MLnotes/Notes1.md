@@ -32,12 +32,14 @@ It solves the regression problem of modelling a set of points $\{(x_1,y_1) ... (
 
 We find the optimal polynomial by linear algebra. So consider a matrix 
 $$
+
 A=  \begin{bmatrix}
     1 & x_1 & x_1^2 & ... & x_1^n \\
     1 & x_2 & x_2^2 & ... & x_2^n \\
     ... \\
     1 & x_N & x_N^2 & ... & x_N^n 
   \end{bmatrix}
+  
 $$
 and vector 
 $$
