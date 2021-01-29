@@ -7,6 +7,7 @@ Deep Learning book - Goodfellow, Bengio, Courville
 
 Google colab for experimentation
 
+HERP DERP
 ## Definitions I guess
 **Artificial intelligence** - anything a computer does thats mildly smart: shortest path problem etc
 **Machine learning** - subset of AI. The computer builds models of training instances of a problem which is then applied to solve other instances of problem.
