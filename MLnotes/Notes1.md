@@ -31,7 +31,7 @@ Has intuition about whats useful
 ## Basic algorithms in ML that are not Neural Nets
 ### Least squares
 It solves the regression problem of modelling a set of points $\{(x_1,y_1) ... (x_N,y_N)\}$ with a degree $n$ polynomial $P(x) = \sum_{i=0}^{n} a_i x^i$ for some $n$. We aim to make the model accurate by minimising 
-$$ Loss(P)= \sum_{i=1}^n (P(x_i)-y_i)^2$$.
+$$Loss(P)= \sum_{i=1}^n (P(x_i)-y_i)^2$$.
 
 We find the optimal polynomial by linear algebra. So consider a matrix 
 $$A=\begin{bmatrix}
