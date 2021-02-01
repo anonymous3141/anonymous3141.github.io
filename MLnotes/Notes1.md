@@ -2,12 +2,9 @@
 {% include head2.html %}
 ## What resources am I using? 
 Deep Learning with Python - Chollet
-
 Deep Learning book - Goodfellow, Bengio, Courville
-
 Google colab for experimentation
 
-HERP DERP
 ## Definitions I guess
 **Artificial intelligence** - anything a computer does thats mildly smart: shortest path problem etc
 **Machine learning** - subset of AI. The computer builds models of training instances of a problem which is then applied to solve other instances of problem.
@@ -31,32 +28,39 @@ Has intuition about whats useful
 
 ## Basic algorithms in ML that are not Neural Nets
 ### Least squares
-It solves the regression problem of modelling a set of points $\{(x_1,y_1) ... (x_N,y_N)\}$ with a degree $n$ polynomial $P(x) = \sum_{i=0}^{n} a_i x^i$ for some $n$. We aim to make the model accurate by minimising 
-$$Loss(P)= \sum_{i=1}^n (P(x_i)-y_i)^2$$.
+It solves the regression problem of modelling a set of points $\{(x_1,y_1) ... (x_N,y_N)\}$ with a degree $n$ polynomial $P(x) = \sum_{i=0}^{n} a_i x^i$ where $n << N$ (otherwise we **overfit**). We aim to make the model accurate by minimising $\sum_{i=1}^n (P(x_i)-y_i)^2$.
 
 We find the optimal polynomial by linear algebra. So consider a matrix 
-$$A=\begin{bmatrix}
+$$
+A=  \begin{bmatrix}
     1 & x_1 & x_1^2 & ... & x_1^n \\
     1 & x_2 & x_2^2 & ... & x_2^n \\
     ... \\
     1 & x_N & x_N^2 & ... & x_N^n 
-  \end{bmatrix}$$
+  \end{bmatrix}
+$$
 and vector 
-$$b=\begin{bmatrix}
+$$
+b =\begin{bmatrix}
 y_1\\
 y_2\\
 ...\\
 y_N\\
-\end{bmatrix}$$
+\end{bmatrix}
+$$
 The problem is equivalent to trying to find the optimal vector
-$$x=\begin{bmatrix}
+$$
+x =\begin{bmatrix}
 a_0\\
 a_1\\
 ...\\
 a_n\\
-\end{bmatrix}$$
+\end{bmatrix}
+$$
 such that the norm
-$$||Ax-b||^2$$
+$$
+||Ax-b||^2
+$$
 is minimised.
 **Lemma 1:** The optimal $x$ satisfies the condition $A^TAx=A^Tb$.
 **Proof:** Apparently there's a easy vector calculus proof but I don't know vector calculus so we're doing this dumbly. If $C_A$ is the columnspace of $A$ then essentially we're just taking $x=proj_{C_A}  b$. As we all know, $C_A \perp b-Ax$ (by definition of projection or think about Gram-Schmidt I guess) so we have for any $v\in C_A$ that $<c,b-Ax>=0$ where $<>$ denotes dot product. By writing $v=Au$ for arbitary vectors $u$ we have $<Au, b-Ax> = 0\iff u^{T} A^{T} b = u^{T} A^{T} Ax$. Now let $k = A^TAx-A^Tb$ and consider $u^{T} k$. If $k\neq 0$ there must exist $u$ that $u^Tk\neq 0$. We leave the reader to prove this assertion. However, it is easy to see in the light of the previous equation that it implies the Lemma.
