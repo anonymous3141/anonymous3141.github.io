@@ -12,3 +12,7 @@ Hey there, thanks for visiting my blog :) I'm Junhua, an Australian computer sci
 
 ### Notes of a machine learning beginner
 I decided to start learning keras to do some basic ML. This is where I place my notes.
+- 2/1/2021 [A first look at machine learning](https://anonymous3141.github.io/MLnotes/Notes1)
+- TODO: Naive Bayes
+- TODO: k-means
+- TODO: An Overview of neural networks
