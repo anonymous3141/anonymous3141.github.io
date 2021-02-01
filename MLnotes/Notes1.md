@@ -2,7 +2,11 @@
 {% include head2.html %}
 ## What resources am I using? 
 Deep Learning with Python - Chollet
+
+
 Deep Learning book - Goodfellow, Bengio, Courville
+
+
 Google colab for experimentation
 
 ## Definitions I guess
@@ -77,7 +81,7 @@ is minimised.
 
 **Lemma 1:** The optimal $$x$$ satisfies the condition $$A^TAx=A^Tb$$.
 
-**Proof:** Apparently there's a easy vector calculus proof but I don't know vector calculus so we're doing this dumbly. If $C_A$ is the columnspace of $$A$$ then essentially we're just taking $$x=proj_{C_A}  b$$. As we all know, $$C_A \perp b-Ax$$ (by definition of projection or think about Gram-Schmidt I guess) so we have for any $$v\in C_A$$ that $$<c,b-Ax>=0$$ where $$<>$$ denotes dot product. By writing $$v=Au$$ for arbitary vectors $$u$$ we have $$<Au, b-Ax> = 0\iff u^{T} A^{T} b = u^{T} A^{T} Ax$$. Now let $$k = A^TAx-A^Tb$$ and consider $$u^{T} k$$. If $$k\neq 0$$ there must exist $$u$$ that $$u^Tk\neq 0$$. We leave the reader to prove this assertion. However, it is easy to see in the light of the previous equation that it implies the Lemma.
+**Proof:** Apparently there's a easy vector calculus proof but I don't know vector calculus so we're doing this dumbly. If $$C_A$$ is the columnspace of $$A$$ then essentially we're just taking $$x=proj_{C_A}  b$$. As we all know, $$C_A \perp b-Ax$$ (by definition of projection or think about Gram-Schmidt I guess) so we have for any $$v\in C_A$$ that $$<c,b-Ax>=0$$ where $$<>$$ denotes dot product. By writing $$v=Au$$ for arbitary vectors $$u$$ we have $$<Au, b-Ax> = 0\iff u^{T} A^{T} b = u^{T} A^{T} Ax$$. Now let $$k = A^TAx-A^Tb$$ and consider $$u^{T} k$$. If $$k\neq 0$$ there must exist $$u$$ that $$u^Tk\neq 0$$. We leave the reader to prove this assertion. However, it is easy to see in the light of the previous equation that it implies the Lemma.
 
 Thus we simply compute $$x=(A^TA)^{-1} (A^Tb)$$ and we are done.
 
