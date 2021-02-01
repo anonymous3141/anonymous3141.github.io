@@ -12,7 +12,7 @@ Google colab for experimentation
 ## Types of ML
 - **Supervised:** Program is given input and output pairs and learns the model this way.
   - **Classification problem:** The output domain is discrete (e.g the set {0,1}). Problems include digit recognition
-  - **Regression problem:** The output is $\mathbb{R}^k$. Problems include many physics things like experimentally finding friction coefficient
+  - **Regression problem:** The output is $$\mathbb{R}^k$$. Problems include many physics things like experimentally finding friction coefficient
 - **Reinforced learning:** Program is given input, and feedback in form of reward function based on its output. I suppose Neural Nets are a form of this.
 - **Unsupervised learning:** Program is given inputs but not expected outputs, and is left to make sense of patterns in data.
   - **Clustering** is an example of this
@@ -28,9 +28,10 @@ Has intuition about whats useful
 
 ## Basic algorithms in ML that are not Neural Nets
 ### Least squares
-It solves the regression problem of modelling a set of points $\{(x_1,y_1) ... (x_N,y_N)\}$ with a degree $n$ polynomial $P(x) = \sum_{i=0}^{n} a_i x^i$ where $n << N$ (otherwise we **overfit**). We aim to make the model accurate by minimising $\sum_{i=1}^n (P(x_i)-y_i)^2$.
+It solves the regression problem of modelling a set of points $$\{(x_1,y_1) ... (x_N,y_N)\}$$ with a degree $$n$$ polynomial $$P(x) = \sum_{i=0}^{n} a_i x^i$$ where $$n << N$$ (otherwise we **overfit**). We aim to make the model accurate by minimising $$\sum_{i=1}^n (P(x_i)-y_i)^2$$.
 
 We find the optimal polynomial by linear algebra. So consider a matrix 
+
 $$
 A=  \begin{bmatrix}
     1 & x_1 & x_1^2 & ... & x_1^n \\
@@ -39,7 +40,9 @@ A=  \begin{bmatrix}
     1 & x_N & x_N^2 & ... & x_N^n 
   \end{bmatrix}
 $$
+
 and vector 
+
 $$
 b =\begin{bmatrix}
 y_1\\
@@ -47,8 +50,10 @@ y_2\\
 ...\\
 y_N\\
 \end{bmatrix}
+
 $$
 The problem is equivalent to trying to find the optimal vector
+
 $$
 x =\begin{bmatrix}
 a_0\\
