@@ -50,8 +50,8 @@ y_2\\
 ...\\
 y_N\\
 \end{bmatrix}
-
 $$
+
 The problem is equivalent to trying to find the optimal vector
 
 $$
@@ -62,26 +62,29 @@ a_1\\
 a_n\\
 \end{bmatrix}
 $$
+
 such that the norm
+
 $$
 ||Ax-b||^2
 $$
-is minimised.
-**Lemma 1:** The optimal $x$ satisfies the condition $A^TAx=A^Tb$.
-**Proof:** Apparently there's a easy vector calculus proof but I don't know vector calculus so we're doing this dumbly. If $C_A$ is the columnspace of $A$ then essentially we're just taking $x=proj_{C_A}  b$. As we all know, $C_A \perp b-Ax$ (by definition of projection or think about Gram-Schmidt I guess) so we have for any $v\in C_A$ that $<c,b-Ax>=0$ where $<>$ denotes dot product. By writing $v=Au$ for arbitary vectors $u$ we have $<Au, b-Ax> = 0\iff u^{T} A^{T} b = u^{T} A^{T} Ax$. Now let $k = A^TAx-A^Tb$ and consider $u^{T} k$. If $k\neq 0$ there must exist $u$ that $u^Tk\neq 0$. We leave the reader to prove this assertion. However, it is easy to see in the light of the previous equation that it implies the Lemma.
 
-Thus we simply compute $x=(A^TA)^{-1} (A^Tb)$ and we are done.
+is minimised.
+**Lemma 1:** The optimal $$x$$ satisfies the condition $$A^TAx=A^Tb$$.
+**Proof:** Apparently there's a easy vector calculus proof but I don't know vector calculus so we're doing this dumbly. If $C_A$ is the columnspace of $$A$$ then essentially we're just taking $$x=proj_{C_A}  b$$. As we all know, $$C_A \perp b-Ax$$ (by definition of projection or think about Gram-Schmidt I guess) so we have for any $$v\in C_A$$ that $$<c,b-Ax>=0$$ where $$<>$$ denotes dot product. By writing $$v=Au$$ for arbitary vectors $$u$$ we have $$<Au, b-Ax> = 0\iff u^{T} A^{T} b = u^{T} A^{T} Ax$$. Now let $$k = A^TAx-A^Tb$$ and consider $$u^{T} k$$. If $$k\neq 0$$ there must exist $$u$$ that $$u^Tk\neq 0$$. We leave the reader to prove this assertion. However, it is easy to see in the light of the previous equation that it implies the Lemma.
+
+Thus we simply compute $$x=(A^TA)^{-1} (A^Tb)$$ and we are done.
 
 **Wait what this is a machine learning algorithm?**
 YES! We are deducing a **model** from a set of input points, the **training set** that allows us to predict the value for future x coordinates (say the **test/evaluation set**). Let us discuss this algorithm with some machine learning terminologies.
 
 **Q: How good is our model?**
-**A:** Depends. We choose the best model from our **hypothesis space** (the set of all possible models the algorithm may choose the apply, in this case the set of all degree $n$ polynomials in terms of our **loss function** (a performance metric, in this case the sum of errors squared)
+**A:** Depends. We choose the best model from our **hypothesis space** (the set of all possible models the algorithm may choose the apply, in this case the set of all degree $$n$$ polynomials in terms of our **loss function** (a performance metric, in this case the sum of errors squared)
 **Q: How can we tune our model?**
-**A:** While the parameters of our model $x$ is chosen by the algorithm, the value of $n$ is not. That is a **hyperparameter**, or  value humans choose for the algorithm experimentally and/or based on prior knowledge. While hyperparameters can be chosen by another algorithm, it is most common that us humans choose it.
+**A:** While the parameters of our model $$x$$ is chosen by the algorithm, the value of $$n$$ is not. That is a **hyperparameter**, or  value humans choose for the algorithm experimentally and/or based on prior knowledge. While hyperparameters can be chosen by another algorithm, it is most common that us humans choose it.
 
 **Q: How do we know our model generalises?**
-**A:** Broadly speaking, we don't. A major hurdle of any machine learning algorithm is to have a model that generalises. We don't want our model to **underfit**, or fit too loosely to our training data. This could be trying to fit a linear model ($n=1$) to a exponential growth curve, but we don't want to have a large **generalisation gap** due to **overfitting** either. This can be due to say fitting a degree 100 polynomial in our case to a simple linear model, resulting in a curve that perfectly passes through every point by zigzaging through every point, but is nonlinear and inaccurate in reality. In other words, by choosing too large a hypothesis space (allowing $n=100$ degree polynomials), we overtaylor our models to the training set, thus missing the true essence of the data and sacrificing performance on general data.
+**A:** Broadly speaking, we don't. A major hurdle of any machine learning algorithm is to have a model that generalises. We don't want our model to **underfit**, or fit too loosely to our training data. This could be trying to fit a linear model ($$n=1$$) to a exponential growth curve, but we don't want to have a large **generalisation gap** due to **overfitting** either. This can be due to say fitting a degree 100 polynomial in our case to a simple linear model, resulting in a curve that perfectly passes through every point by zigzaging through every point, but is nonlinear and inaccurate in reality. In other words, by choosing too large a hypothesis space (allowing $$n=100$$ degree polynomials), we overtaylor our models to the training set, thus missing the true essence of the data and sacrificing performance on general data.
 ### K-nearest neighbour
 Perhaps the most mind numbingly dumb Machine learning algorithm I've seen to date. So suppose you have a set of labels you want to classify a point as;
 **For instance:** 
@@ -89,7 +92,7 @@ Perhaps the most mind numbingly dumb Machine learning algorithm I've seen to dat
  You want to classify them as carrot or potato plants.
  In this case a point is (height, length) and there are 2 labels (carrot, potato)
 
-What this algorithm does is given a test point, examine the $K$ nearest points (by some distance metric such as euclidean) in training set to the test point, and determine the current label by a simple majority vote between these points. Here, $K$ and distance metric is a hyper-parameter. It's that simple ....
+What this algorithm does is given a test point, examine the $$K$$ nearest points (by some distance metric such as euclidean) in training set to the test point, and determine the current label by a simple majority vote between these points. Here, $$K$$ and distance metric is a hyper-parameter. It's that simple ....
 
 **Q: Is this algorithm guaranteed to be good?**
 **A:** Hell no. In fact, the **No Free Lunch theorem** [to be continued] ... Thus it is important as humans to choose the best ML algorithms for a certain job based on assumptions (for instance this algorithm assumes that things with the same label are similar)
