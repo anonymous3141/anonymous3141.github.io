@@ -21,4 +21,4 @@ I decided to start learning keras to do some basic ML. This is where I place my 
 ### Non Maths and CS Stuff
 
 I take great interest in history and have occasionally wrote some stuff on it.
-- 30/1/2021 [The Edo period of Japan](https://anonymous3141.github.io/randomstuff/EdoJapan.pdf)
+- 30/1/2021 [The Edo period of Japan](https://anonymous3141.github.io/randomstuff/Edo%20japan.pdf) (includes insider jokes)
