@@ -9,10 +9,16 @@ Hey there, thanks for visiting my blog :) I'm Junhua, an Australian computer sci
 [//]: # (Lmao this is how you do markdown)
 - 21/12/2020: [Algorithms on tree](https://anonymous3141.github.io/informatics/Tree1)  
 - TODO: The ICC-trick and its various intepretations
+- TODO: Segment tree methodology
 
 ### Notes of a machine learning beginner
 I decided to start learning keras to do some basic ML. This is where I place my notes.
 - 2/1/2021 [A first look at machine learning](https://anonymous3141.github.io/MLnotes/Notes1)
+- TODO: My first neural network
 - TODO: Naive Bayes
 - TODO: k-means
-- TODO: An Overview of neural networks
+
+### Non Maths and CS Stuff
+
+I take great interest in history and have occasionally wrote some stuff on it.
+- 30/1/2021 [The Edo period of Japan](https://anonymous3141.github.io/randomstuff/EdoJapan.pdf)
