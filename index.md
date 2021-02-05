@@ -7,6 +7,7 @@ Hey there, thanks for visiting my blog :) I'm Junhua, an Australian computer sci
 ## Posts
 ### Informatics stuff (competitive programming)
 [//]: # (Lmao this is how you do markdown)
+- 14/12/2020: [Divide and conquer](https://anonymous3141.github.io/informatics/DandC.pdf) This is a lecture I presented at the 2020 AIOC School of Excellence
 - 21/12/2020: [Algorithms on tree](https://anonymous3141.github.io/informatics/Tree1)  
 - TODO: The ICC-trick and its various intepretations
 - TODO: Segment tree methodology
