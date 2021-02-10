@@ -10,7 +10,7 @@ Hey there, thanks for visiting my blog :) I'm Junhua, an Australian computer sci
 - 14/12/2020: [Divide and conquer](https://anonymous3141.github.io/informatics/DandC.pdf) This is a lecture I presented at the 2020 AIOC School of Excellence
 - 21/12/2020: [Algorithms on tree](https://anonymous3141.github.io/informatics/Tree1)  
 - TODO: The ICC-trick and its various intepretations
-- TODO: Segment tree methodology
+- 10/2/2021 [Segment Tree Usage](https://anonymous3141.github.io/informatics/SegmentTrees)
 
 ### Notes of a machine learning beginner
 I decided to start learning keras to do some basic ML. This is where I place my notes.
