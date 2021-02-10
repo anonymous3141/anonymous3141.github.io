@@ -46,15 +46,18 @@ Solutions will be provided at the end
 USACO 2019 Jan Plat P1, ACIO Pancakes
 ###  Mergeable segment trees
 Small Merge
-### Range and/or frontier dps
-They often remind us of matrices
 
+### Lazy dps
+Use segment tree to assist the mapping of dp states. For instance, the LIS.
 ## Part III: Putting things in segment trees
 
 ### Sets and priority queues
 Rev up the dimensionality
 ### Vectors
 The merge sort Tree
+
+### Range and/or frontier dps
+They often remind us of matrices
 
 ### Sorted Stacks
 
