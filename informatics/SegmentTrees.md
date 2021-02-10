@@ -1,4 +1,5 @@
 {% include head2.html %}
+{% include head.html %}
 # Advanced Usage of Segment Trees
 
 Segment Trees are some of the most versatile data structures in informatics. We examine creative usages of segment trees in this blog that are essential to a informatics skillset.
