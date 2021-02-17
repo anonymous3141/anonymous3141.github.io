@@ -143,6 +143,173 @@ Using small merge, we can merge the children's segment trees into $S_i$ in time 
 
 The total complexity is $O(M+Nlog^2N)$ using these tools.
 
+The author spent 4 hours of his time writing this sample code that unfortunately MLE's but contains the spirit of the correct solution.
+```cpp
+#include <iostream>
+#include <vector>
+#define MAXN 500005
+#define MOD 998244353
+#define LL long long
+using namespace std;
+struct Node {LL val, lazy1, lazy2; //lazy1 is add, lazy2 is multiply
+            int l,r;}; //always multiply before adding
+
+void modadd(LL &a, LL b) {
+    a = (a + b) % MOD;
+}
+
+void modmult(LL &a, LL b) {
+    a = (a*b) % MOD;
+}
+
+class LazyCreate {
+public:
+    vector <Node> ST; //keyed by depth of ancestor
+    //if node has no children all values in range has node's value
+    void addnode(int cur) {
+        ST.push_back(Node {ST[cur].val,0,1,-1,-1});
+        ST.push_back(Node {ST[cur].val,0,1,-1,-1});
+        ST[cur].l = ST.size() - 2;
+        ST[cur].r = ST.size() - 1;
+    }
+
+    void pushdown(int cur) {
+        modmult(ST[cur].val,ST[cur].lazy2);
+        modadd(ST[cur].val, ST[cur].lazy1);
+        if (ST[cur].l != -1) { //tags must coexist at some point
+            modmult(ST[ST[cur].l].lazy1, ST[cur].lazy2);
+            modmult(ST[ST[cur].r].lazy1, ST[cur].lazy2);
+            modmult(ST[ST[cur].l].lazy2, ST[cur].lazy2);
+            modmult(ST[ST[cur].r].lazy2, ST[cur].lazy2);
+            modadd(ST[ST[cur].l].lazy1, ST[cur].lazy1);
+            modadd(ST[ST[cur].r].lazy1, ST[cur].lazy1);
+        }
+        ST[cur].lazy1 = 0;
+        ST[cur].lazy2 = 1;
+    }
+
+    void upd(LL val, bool b, int lo, int hi, int l, int r, int cur) {
+        //range add val
+        pushdown(cur);
+        if (lo > r || hi < l) {return;}
+        if (lo <= l && hi >= r) {
+            if (b) { //add
+                modadd(ST[cur].lazy1,val);
+            } else {
+                modmult(ST[cur].lazy2,val);
+            }
+            pushdown(cur);
+            return;
+        }
+        if (ST[cur].l == -1) {addnode(cur);}
+        int mid = (l + r) >> 1;
+        upd(val, b, lo, hi, l, mid, ST[cur].l);
+        upd(val, b, lo, hi, mid+1, r, ST[cur].r);
+    }
+
+    LL getval(int ind, int l, int r, int cur) {
+        pushdown(cur);
+        if (ST[cur].l == -1) {return(ST[cur].val);}
+        int mid = (l + r) >> 1;
+        if (ind > mid) {return(getval(ind, mid+1, r, ST[cur].r));}
+        else {return(getval(ind, l, mid, ST[cur].l)); }
+    }
+
+    void init() {
+        ST.push_back(Node {0,0,1,-1,-1});
+    }
+} MST[MAXN]; //lmao mergable segtree
+
+int N, M;
+int max_dep, S[MAXN], big[MAXN], par[MAXN], dep[MAXN], sz[MAXN], chd[MAXN]; //tightest constraint, parent, depth, subtree size
+vector <int> adj[MAXN];
+
+void dfs(int u, int prev) {
+    par[u] = prev;
+    dep[u] = dep[prev] + 1;
+    sz[u] = 1;
+    max_dep = max(max_dep, dep[prev]);
+    for (int v: adj[u]) {
+        if (v == prev) {continue;}
+        dfs(v, u);
+        sz[u] += sz[v];
+    }
+}
+
+void mergeTree(int t1, int t2, int cur1, int cur2) { //lazy create
+    //merge t1 into t2 recursively
+    MST[t1].pushdown(cur1);
+    MST[t2].pushdown(cur2);
+    if (MST[t1].ST[cur1].l == -1) {
+        modmult(MST[t2].ST[cur2].lazy2, MST[t1].ST[cur1].val);
+        MST[t2].pushdown(cur2);
+    } else {
+        if (MST[t2].ST[cur2].l == -1) {
+            MST[t2].addnode(cur2); //wanna AC? in this case link t1's node to t2 and lazy t2 instead
+        }
+        mergeTree(t1, t2, MST[t1].ST[cur1].l, MST[t2].ST[cur2].l);
+        mergeTree(t1, t2, MST[t1].ST[cur1].r, MST[t2].ST[cur2].r);
+    }
+}
+
+void dfs2(int u) {
+    //do the dp, Segtree stores at i what is best if last taken edge was at height i
+    //edge whose parent has depth i has depth i too
+    big[u] = 0;
+    int thresh = dep[S[u]]; //can take both red and blue for thresh ... N
+    LL prod = 1;
+    for (int v: adj[u]) {
+        if (v == par[u]) {continue;}
+        dfs2(v);
+        modmult(prod, MST[big[v]].getval(dep[par[u]], 0, max_dep, 0)); //hope no +-1
+    }
+    for (int v: adj[u]) {
+        if (v == par[u]) {continue;}
+        if (sz[big[v]] > sz[big[u]]) {
+            swap(big[v], big[u]);
+        }
+        if (big[v]) {mergeTree(big[v], big[u], 0, 0);}
+    }
+
+    if (!big[u]) {
+        big[u] = u;
+        MST[big[u]].upd(1,1,0,max_dep,0,max_dep,0); //base case
+    }
+    MST[big[u]].upd(0, 0, 0, thresh-1, 0, max_dep, 0); //nuke [0...thresh-1] by multiplying by 0
+    MST[big[u]].upd(prod,1, 0, max_dep, 0, max_dep, 0); //watch +- 1 for thresh, colouring edge u-> par[u] is universal option
+
+}
+int main() {
+    //freopen("fatein.txt","r",stdin);
+    scanf("%d",&N);
+    LL a = 1;
+    for (int i=1; i<N; i++) {
+        int u,v;
+        scanf("%d %d",&u,&v);
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+
+    dfs(1,0);
+    S[1] = 1; //nice WLOG
+    for (int i=0; i<=N; i++) {
+        MST[i].init();
+    }
+
+    scanf("%d",&M);
+    for (int i=0; i<M; i++) {
+        int a,b;
+        scanf("%d %d",&a,&b);
+        if (dep[a] > dep[b]) {swap(a,b);} //a is shallower
+        if (dep[S[b]] < dep[a]) { //if a is deeper relax
+            S[b] = a;
+        }
+    }
+
+    dfs2(1);
+    printf("%lld", MST[big[1]].getval(0,0,max_dep,0));
+}
+```
 ## Part IV: Putting things in segment trees
 
 ### Sets and priority queues
