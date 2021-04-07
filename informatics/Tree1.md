@@ -1,4 +1,5 @@
 {% include head.html %}
+{% include head2.html %}
 # Algorithms regarding to Trees
 Trees is one of the greatest areas in graph theory covered in informatics contests, and is increasing in popularity rapidly. In this blog we cover some tree algorithms.
 ### Notes
@@ -111,26 +112,125 @@ If we merely build the virtual tree for the set of path endpoints, then it must 
 
 *The euler tour sweep*
 
+Lastly, it should we mentioned that the virtual tree is a good tool in module tasks to build up a tree as more information is obtained.
 
 
 ## Greedy algorithms and small merge
--Job scheduling
--Pushing stuff up through subtree (e.g that atcoder problem, spring cleaning)
-## Sibling dp
 
-## Shaving off leaves and applications to edge matching
-Pair programming
+Tree problems often involve greedy solutions, which are done through exploiting extremal structures in the tree such as the leaf. We discuss the following points:
+ - Solving the problem on subtrees
+ - Decrease and conquer (forced moves)
+ - Shaving off leaves
+ - The benefits of having a combinatorial upper/lower bound on the answer (Thanks Ray Li for teaching me this)
 
-## HLD
+### Example 1: Edge matching
+Suppose that in a graph $G=(V,E)$ we want to find a max matching among edges where edges $u,v$ can be matched if they share a common endpoint (are incident). 
+
+We do this by constructing the edge tree through a dfs on the edges of the graph. In the resulting tree we observe two results:
+ - Every edge in the edge-dfs tree (henceforth edge-tree) corresponds to an edge in the original graph
+ - If two edges are incident in the edge-tree they are incident also in the original graph
+ 
+We will now solve the edge-matching problem on this graph, and show that solving the problem on the tree.
+
+Rooting arbitrarily, consider the deepest leaf $v$and its parent $p$. Suppose $p$ has no other children. Then we match the edges $(v,p)$ and $(p, par(p))$. Otherwise, we match $(v,p)$ with $(u,p)$ where $u$ is a sibling of $v$. This strategy, at every iteration, deletes two edges from the tree while maintaining the connectivity of the tree's remaining edges. Thus with this strategy we can achieve $\lfloor \frac{E}{2} \rfloor$ matchings total, the theoretic maximum. Thus, as we can achieve the maximum by considering the tree structure, we can map this to a solution in the original graph.
+
+This example shows us, that a naive upper bound, combined with consideration of subtrees, can reap rewards. 
+### Resolving subtrees
+
+Consider the problem [Snap Tokens](https://acio-olympiad.github.io/2020/snap.pdf) from ACIO 2021 Contest 2. While the actual problem asks for solutions on vortex graphs, we solve the problems on trees first.
+
+Rooting the tree arbitrarily is a good start, and we should think about what happens in a subtree. We make a few observations:
+
+ - It should be obvious that an edge is traversed at most once, otherwise the two movements of tokens cancel out
+ - It should also be obvious that moving token $a$ to annihilate token $b$ is the same as moving $b$ to $a$
+
+With this in mind, lets consider what happens in the subtree of $v$:
+ - If there is no tokens, we are done
+ - If there is one token, we are forced to move it upwards to the parent of $v$ (as moving tokens downwards to meet it is the same as moving it upwards to meet the token, so we should take care of the subtree)
+ - If we have multiple tokens in our subtree it gets interesting. We recursively solve the problem on the subtrees first, then some tokens would get moved to the node $v$. These cancel out, leaving nothing or at most 1 spare token behind. In the final case, we have to move this token upwards.
+
+This gives us an immediate solution to the tree case, and by considering the vortex as trees hanging off a cycle, it turns out the problem is basically solved (the case of cycle left to reader).
+
+However, a interesting extension to the problem is where there are updates of the form: **Move a token from node $u$ to $v$** (we will concern ourselves with the tree case, the cycle is more tedious, but is largely uninteresting)
+
+Now, we need a more elegant form of counting the number of needed moves. We apply some combinatorial thinking, and ask: Under what conditions do we need to move a token from $v$ to its parent (it is almost as if we try to lower bound the answer)? 
+
+We leave the reader to consider this. Note that even with this more elegant condition, HLD is needed to solve the problem. 
+
+Here, combinatorial thinking and breaking the problem into subtrees has paid dividends.
+
+### Job Scheduling (IOI19 practice contest)
+This is a fantastic problem that I won't spoil. But thinking about extreme "forced moves" within the decision making on the tree is a good course of action. This is also a valid approach for greedy problems in general.
+## Advanced DP on tree
+DP on tree involves solving problems on subtrees of the original tree, then merging these answers to produce the original solution. However, there are many tools to accelerate these dps.
+
+### Optimising $O(N^2)$ to $O(NlogN)$
+Suppose that a tree dp takes the form of $dp[\text{subtree v}][\text{some attribute j, say time}]$, but the transitions are relatively simple functions. Then we can use a data structure, like a segment tree or set, to maintain the second dimension $j$ for a subtree. We can use small merge to accelerate state transitions. Please see the section in "Segment Trees" on mergeable segment trees for an example.
+
+### Sibling dp
+In short, an algorithm that appears to be $O(N^3)$ is actually $O(N^2)$.  It is best explained with an example (courtesy of I_am_sb, from a Chinese Provincial Selection Exam)
+
+**The problem: Monochrome Tree**
+You are given a weighted tree with $N\leq 2000$ nodes. You are also given an integer $0\leq K\leq N$. You are to choose $K$ nodes from this tree and colour them black, with the rest being coloured white. The score of the tree, which you must maximise, is the sum:
+$$S(\mathcal{T})=\sum_{u\ black} \sum_{v\ white} dist(u,v)$$
+
+Output the maximium score.
+**The solution:** 
+Rooting arbitarily and sing the most obvious dp state, we have $dp[i][j]=max$, where $i$ is the subtree, and $j$ is the number of black nodes assigned to the subtree. We apply our combinatorical thinking in constructinng our recursion, and think about the contribution of an edge to the final score. 
+
+Deleting a certain edge $(u,v)$ where $u$ is the parent of $v$, will say split the tree into two connected components with $x$ and $N-x$ nodes where $x$ is the size of the subtree at $v$. If we allot $b$ black nodes to the subtree of $v$ then $f(v,b)=b(N-x+b-K) + (K-b)(x-b)$ different black-white node pair paths will cross the edge $(u,v)$ , so the contribution of the edge $(u,v)$ is its weight multiplied by $f(v,b)$. 
+
+Let $slv(i)$ be a function that finds $dp[i][j]$ for all $0\leq j \leq size(i)$, where size denotes subtree size. Its psuedocode might look something like this, where we recursively solve the subtrees then do a knapsack dp to find the best allocation of black nodes to the subtrees.
+
+```
+void slv(v)
+	Let c = num_children(v)
+	Let dp2[size(v)][2] := new array
+	for each child i = 1 ... c: 
+		Let s := sum of subtree sizes 1 ... i-1
+		slv(i)
+		for k = 0 ... size(i) // how many black nodes for i
+			for j = 0 ... s:
+				dp2[k+j][i%2] = max(dp2[k+j][i%2], dp2[j][(i+1)%2]+dp[i][k] + f(i,k) * W(v,i))
+	dp[v][i] := dp2[i][c%2] FOR ALL i
+```
+On the surface the complexity seems terrible. But let us be a little more dilligent in our analysis.
+
+Consider the following function, which is basically the same:
+```
+void disp(v):
+	for each child i = 1 ... c:
+		disp(v)
+		for each node a in subtree of i:
+			for each node b in subtrees 1 ... i-1:
+				print(a,b)
+```
+Note that the complexity of the two functions disp and slv are same. Note further, that what disp does, is print every pair of nodes once, with disp(lca(a,b)) printing the pair (a,b). Thus we can also conclude that that slv() runs in $O(N^2)$, which solves our problem.
+
+This is one of the more magical tree dps that can be used.
+
+*Note:* By adding zero weight edges and nodes ignored in subtree size calculations, the implementation can be simplified by turning the tree into a binary tree. This is called the left-child right sibling idea, and is useful in these cases.
+
+## HLD and other data structures on Trees
+
+### Preorder Sweep and Euler Tour
+Please see the page on segment trees.
+
+### HLD
+Its useful and many other people can explain it better than I do. See cp-algorithms for a good explaination.
 
 ## General Problems
-- Baltic OI 2020 Day 2 Village
 - ACIO 2020 Open Contest Black Panthers
 - ACIO 2020 Open Contest Vibe Check
+- ACIO 2020 Contest 2 Tokens
 - CEOI 2020 Spring cleaning
 - CEOI 2019 Magic Tree
-- BOI 2015 Network
+- Baltic OI 2015 Network
+- Baltic OI 2020 Day 2 Village
 - IOI 2019 Practice Contest Job Scheduling
 - IOI 2018 Highway Tolls
 - IOI 2013 Dream
 - IOI 2011 Race
+- IOI 2005 Riv
+- COI18 Paprike
+- FARIO 2011 Virus
