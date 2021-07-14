@@ -1,5 +1,3 @@
-{% include head2.html %}
-{% include head.html %}
 {% include head.html %}
 # Advanced Usage of Segment Trees
 
