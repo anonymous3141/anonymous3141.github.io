@@ -26,4 +26,5 @@ I take great interest in history and have occasionally wrote some stuff on it.
 
 ### Things I've made
 
-- A website and quiz system for my old High School [here](https://github.com/Maths-Club). I really need to revamp this blog to be like the github pages I made for that one!
+- A website and quiz system for my old High School [here](https://github.com/Maths-Club). It uses the Django framework as well as various other APIs. I really need to revamp this blog to be like the github pages static component I made for that one!
+- A technical report on applying machine learning to build a recommender system for the ORAC informatics training site. The report is found [here](https://anonymous3141.github.io/MLnotes/ORAC%20Recommendation%20System%20summary.pdf), and describes the process from scraping data to benchmarking accuracy. Code is included.
