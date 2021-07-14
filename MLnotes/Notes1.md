@@ -1,13 +1,7 @@
 
 {% include head2.html %}
-## What resources am I using? 
-Deep Learning with Python - Chollet
-
-
-Deep Learning book - Goodfellow, Bengio, Courville
-
-
-Google colab for experimentation
+## Lol I really can't be stuffed typing up my notes rip I guess
+Also rip formatting 
 
 ## Definitions I guess
 **Artificial intelligence** - anything a computer does thats mildly smart: shortest path problem etc
