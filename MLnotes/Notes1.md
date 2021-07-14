@@ -1,5 +1,5 @@
 
-{% include head2.html %}
+{% include head.html %}
 ## Lol I really can't be stuffed typing up my notes rip I guess
 Also rip formatting 
 
