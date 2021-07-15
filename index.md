@@ -8,12 +8,12 @@ Hey there, thanks for visiting my blog :) I'm Junhua, an Australian computer sci
 <div id="html" markdown="0">
 
 {% for post in site.posts %}
-    <li>
-      <a href="{{ post.url | prepend: site.baseurl }}">
-          <h2>{{ post.title }}</h2>
-      </a>
+
+    <a href="{{ post.url | prepend: site.baseurl }}">
+          <h4>{{ post.title }}</h4>
+     </a>
+     <p> {{ post.date }} <br> </p>
 	<p> {{ post.excerpt }} </p>
-    </li>
 {% endfor %}
 
 </div>
