@@ -5,6 +5,7 @@ Hey there, thanks for visiting my blog :) I'm Junhua, an Australian computer sci
 ## Why do I Blog?
 ~~Not everyone has a girlfriend to brag to~~ Why not?
 ## Posts
+Below are my posts. 
 <div id="html" markdown="0">
 
 {% for post in site.posts %}
