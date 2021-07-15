@@ -1,5 +1,5 @@
 ---
-excerpt: A brief description of your post
+excerpt: A notice on the blog revamp
 ---
 {% include head.html %}
 
