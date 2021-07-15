@@ -1,3 +1,7 @@
+---
+excerpt: on advanced usage of segment trees
+---
+
 {% include head.html %}
 # Advanced Usage of Segment Trees
 
