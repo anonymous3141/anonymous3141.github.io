@@ -1,7 +1,9 @@
-
+---
+excerpt: Some notes made by me in my first attempt to do Machine Learning.
+---
 {% include head.html %}
-## Lol I really can't be stuffed typing up my notes rip I guess
-Also rip formatting 
+## Lol I really can't be stuffed typing up more of my notes rip I guess
+Also rip formatting (idk even if what I wrote is right lol)
 
 ## Definitions I guess
 **Artificial intelligence** - anything a computer does thats mildly smart: shortest path problem etc
