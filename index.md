@@ -15,7 +15,6 @@ Below are my posts.
 
 </div>
 
-# Other stuff
 ## Non Maths and CS Stuff
 
 I take great interest in history and have occasionally wrote some stuff on it.
