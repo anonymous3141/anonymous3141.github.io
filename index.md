@@ -23,4 +23,4 @@ I take great interest in history and have occasionally wrote some stuff on it.
 ## Things I've made
 
 - A website and quiz system for my old High School [here](https://github.com/Maths-Club). The website is hosted by heroku [here](https://cgsmathclub.herokuapp.com/) It uses the Django framework as well as various other APIs. I really need to revamp this blog to be like the github pages static component I made for that one!
-- A technical report on applying machine learning to build a recommender system for the ORAC informatics training site. The report is found [here]({% link static/recommender-report.pdf %}), and describes the process from scraping data to benchmarking accuracy. Code is included.
+- A technical report on applying machine learning to build a recommender system for the ORAC informatics training site. The report is found [here]({% link static/recommender-report.pdf %}), and describes the process from scraping data to benchmarking accuracy. Code is included. In retrospect I could probably have eliminated the "September 2020" cap but meh.
