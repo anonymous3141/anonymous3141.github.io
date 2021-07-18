@@ -7,8 +7,9 @@ Below are my posts.
 {% for post in site.posts %}
 
     <a href="{{ post.url | prepend: site.baseurl }}">
-	    <h5>{{ post.title }}</h5> <p><i> {{ post.date | date: "%-d %B %Y" }} </i> </p>
+	    <h5>{{ post.title }}</h5> 
      </a>
+	<p><i> {{ post.date | date: "%-d %B %Y" }} </i><br> </p>
 	<p> {{ post.excerpt }} </p>
 {% endfor %}
 
