@@ -322,7 +322,9 @@ Oh wait I am actually dumb lol I forgot to read images via PIL (pillow) so Im to
 
 - Logistic Regression scored 1462/1752
 - A 3 layer neural network with layer sizes 4096-128-5 scored 1472/1752
-- An SVM without much tuning (just the regularization) was also tried and scored 1455/1752
+- An SVM from scikit-learn without much tuning (just the regularization) was also tried and scored 1455/1752
 
 Thus, all 3 approaches have accuracies around 83%.
 
+### Source code:
+You can find the pdf of the jupyter-notebook [here]({% link static transferlearn_notebook.pdf %})
