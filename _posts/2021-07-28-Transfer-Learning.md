@@ -315,3 +315,7 @@ Unfortunately none of these things managed to do much better than the baseline. 
 ### Conclusion
 Maybe I'm doing something wrong hmmm idk. I could try augmenting data or something but I suspect the black and white nature of a lot of images would be an issue.
 Oh well...
+
+
+### Edit:
+Oh wait I am actually dumb lol I forgot to read images via PIL (pillow) so Im totally reading in the range [0,255] rather than [0,1] which is actually what normalisation assumes lololololol. 
