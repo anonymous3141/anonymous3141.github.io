@@ -327,4 +327,4 @@ Oh wait I am actually dumb lol I forgot to read images via PIL (pillow) so Im to
 Thus, all 3 approaches have accuracies around 83%.
 
 ### Source code:
-You can find the pdf of the jupyter-notebook [here]({% link static transferlearn_notebook.pdf %})
+You can find the pdf of the jupyter-notebook [here]({% link static/transferlearn_notebook.pdf %})
