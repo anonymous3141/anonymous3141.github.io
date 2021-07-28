@@ -318,4 +318,11 @@ Oh well...
 
 
 ### Edit:
-Oh wait I am actually dumb lol I forgot to read images via PIL (pillow) so Im totally reading in the range [0,255] rather than [0,1] which is actually what normalisation assumes lololololol. 
+Oh wait I am actually dumb lol I forgot to read images via PIL (pillow) so Im totally reading in the range [0,255] rather than [0,1] which is actually what normalisation assumes lololololol. I have now redone the experiment with proper normalisation, and the improvements where marked. Still though, logistic regression did not differ overly from a 3 layer neural network :
+
+- Logistic Regression scored 1462/1752
+- A 3 layer neural network with layer sizes 4096-128-5 scored 1472/1752
+- An SVM without much tuning (just the regularization) was also tried and scored 1455/1752
+
+Thus, all 3 approaches have accuracies around 83%.
+
