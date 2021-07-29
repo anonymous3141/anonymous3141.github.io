@@ -1,5 +1,5 @@
 ---
-excerpt: On Tree graphs
+excerpt: Solving ship classification by modifying AlexNet
 
 ---
 
