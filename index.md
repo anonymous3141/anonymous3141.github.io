@@ -17,8 +17,8 @@ Below are my posts.
 
 ## Non Maths and CS Stuff
 
-I take great interest in history and have occasionally wrote some stuff on it.
-- 30/1/2021 [The Edo period of Japan]({% link static/edo-japan.pdf %}) (includes insider jokes)
+I take great interest in history and have occasionally wrote some stuff on it. 
+- 30/1/2021 [The Edo period of Japan]({% link static/edo-japan.pdf %}) (includes insider jokes & probably factual errors e.g the relation between buddhism and Shinto)
 
 ## Things I've made
 
