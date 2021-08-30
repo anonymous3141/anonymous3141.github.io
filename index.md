@@ -27,4 +27,4 @@ I take great interest in history and have occasionally wrote some stuff on it.
 
 ## Technical Reports
 - A technical report on applying machine learning to build a recommender system for the ORAC informatics training site. The report is found [here]({% link static/recommender-report.pdf %}), and describes the process from scraping data to benchmarking accuracy. Code is included. In retrospect I could probably have eliminated the "September 2020" cap and tried undersampling the non-solves but meh.
-- A technical report describing a NLP semantic classification system that I made for a hackathon [here]({% link static/Technical report_final.pdf %})
+- A technical report describing a NLP semantic classification system that I made for a hackathon [here]({% link static/Technical report_final.pdf %}). I think it really shows model complexity is often less important than the data quality.
