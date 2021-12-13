@@ -20,6 +20,20 @@ Below are my posts. Click on the title to go to the post.
 I take great interest in history and have occasionally wrote some stuff on it. 
 - 30/1/2021 [The Edo period of Japan]({% link static/edo-japan.pdf %}) (includes insider jokes & probably factual errors e.g the relation between buddhism and Shinto)
 
+## AIOC
+
+I have had the cool opportunity to lecture at the Australian Informatics School of Excellence and Team Selection Schools to share some of the tricks I devised or found out about while doing Informatics. Below are my lecture notes.
+
+**December 2020:** 
+[Beta Data structures: Divide and conquer algorithms]({% link static/info-lectures/DandC.pdf %})
+
+**April 2021:**
+[Selection School: Approaches to Tree problems]({% link static/info-lectures/Trees.pdf %})
+
+**December 2021:**
+[Beta Dynamic programming: Assorted nonstandard techniques]({% link static/info-lectures/DPIBeta21Dec.pdf %})
+[Beta Data Structures: 3 ways to use a segment tree]({% link static/info-lectures/DSIIBeta21DecCleaned.pdf %})
+
 ## Things I've made
 
 - A website and quiz system for my old High School's math club which I used to run [here](https://github.com/Maths-Club). The website is hosted by heroku [here](https://cgsmathclub.herokuapp.com/) It uses the Django framework as well as various other APIs. I really need to revamp this blog to be like the github pages static component I made for that one!
