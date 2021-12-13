@@ -25,13 +25,17 @@ I take great interest in history and have occasionally wrote some stuff on it.
 I have had the cool opportunity to lecture at the Australian Informatics School of Excellence and Team Selection Schools to share some of the tricks I devised or found out about while doing Informatics. Below are my lecture notes.
 
 **December 2020:** 
+
 [Beta Data structures: Divide and conquer algorithms]({% link static/info-lectures/DandC.pdf %})
 
 **April 2021:**
+
 [Selection School: Approaches to Tree problems]({% link static/info-lectures/Trees.pdf %})
 
 **December 2021:**
+
 [Beta Dynamic programming: Assorted nonstandard techniques]({% link static/info-lectures/DPIBeta21Dec.pdf %})
+
 [Beta Data Structures: 3 ways to use a segment tree]({% link static/info-lectures/DSIIBeta21DecCleaned.pdf %})
 
 ## Things I've made
