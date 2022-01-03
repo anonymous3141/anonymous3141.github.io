@@ -54,7 +54,7 @@ I have had the cool opportunity to lecture at the Australian Informatics School 
 <script async src="//static.getclicky.com/101348632.js"></script>
 <noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/101348632ns.gif" /></p></noscript>
 	<script src="//widgets.clicky.com/tally/?site_id=101348632&sitekey=eaeb7af83e9066d35d6790f7defc3f7a&width=175&height=250&title=&hide_title=0&hide_branding=0" type="text/javascript"></script>
-	
+	<br><br>
 	<a title="Real Time Web Analytics" href="http://clicky.com/101348632"><img alt="Clicky" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
 </div>
 
