@@ -1,6 +1,3 @@
-<div id="counter" markdown="0">
-	<p align="center"> <img src="https://komarev.com/ghpvc/?username=anonymous3141&label=Profile%20views&color=ce9927&style=flat" alt="anonymous3141" /> </p>
-</div>
 Hey there, thanks for visiting my blog :) I'm Junhua, an Australian computer science and maths enthusiast who just graduated high school (as of December 2020). Thus far, my main exposure to CS and maths is through olympiads. I represented Australia in the IOI (international olympiad in informatics) and also did well in the Australia Maths Olympiad (AMO). However, I'm really excited to explore a wider range of CS and Maths tools and their applications now that there are no more olympiads to do. You will find my explorations, as well as good olympiad competitive programming ideas on this blog (and maybe some other stuff too UwU). Anyway, good to meet you (>w<) 
 
 ## Posts
@@ -49,3 +46,14 @@ I have had the cool opportunity to lecture at the Australian Informatics School 
 ## Technical Reports
 - A technical report on applying machine learning to build a recommender system for the ORAC informatics training site. The report is found [here]({% link static/recommender-report.pdf %}), and describes the process from scraping data to benchmarking accuracy. Code is included. In retrospect I could probably have eliminated the "September 2020" cap and tried undersampling the non-solves but meh.
 - A technical report describing a NLP semantic classification system that I made for a hackathon [here]({% link static/Technical report_final.pdf %}). I think it really shows model complexity is often less important than the data quality.
+
+## Analytics
+
+<div id="counter" markdown="0">
+/*	<p align="center"> <img src="https://komarev.com/ghpvc/?username=anonymous3141&label=Profile%20views&color=ce9927&style=flat" alt="anonymous3141" /> </p> */
+	<a title="Real Time Web Analytics" href="http://clicky.com/101348632"><img alt="Clicky" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script async src="//static.getclicky.com/101348632.js"></script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/101348632ns.gif" /></p></noscript>
+	<script src="//widgets.clicky.com/tally/?site_id=101348632&sitekey=eaeb7af83e9066d35d6790f7defc3f7a&width=175&height=250&title=&hide_title=0&hide_branding=0" type="text/javascript"></script>
+</div>
+
