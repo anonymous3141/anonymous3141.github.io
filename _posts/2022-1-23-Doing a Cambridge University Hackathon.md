@@ -1,5 +1,5 @@
 ---
-excerpt: I helped make something cool in a Cambridge University Hackathon.
+excerpt: I helped make something cool in a Cambridge University Hackathon
 
 ---
 
