@@ -43,7 +43,9 @@ I focused on exploratory data analysis and the machine learning model fitting, w
 
 The winners were announced just after 7pm on Monday the 14th. While we had not expected to win, we were very hopeful that we'd get at least a podium place. 
 
-We were very surprised, but nevertheless very pleased to hear that we had won. I think it ultimately came down to our more meticulous data engineering. It seemed many teams forgot to remove inputs to their machine learning models that could have encoded the answer, and resulted in models that were extremely accurate but which was the result of secretly feeding the answer in. In particular, we were more suspicious when things seemed "too good to be true" (see report section VIII) and scrutinised our data more carefully.
+We were very surprised, but nevertheless very pleased to hear that we had in fact won, against the heavy competition from upper undergraduate and even masters and PhD students. I think it ultimately came down to our more meticulous data engineering. It seemed many teams forgot to remove inputs to their machine learning models that could have encoded the answer, and resulted in models that were extremely accurate but which was the result of secretly feeding the answer in. In particular, we were more suspicious when things seemed "too good to be true" (see report section VIII) and scrutinised our data more carefully.
+
+Tunan has wrtiten an excellent account of the datathon too, especially concerning this data insight [here](https://boyandhisteahouse.com/posts/datathon/) which is well worth a read.
 
 ### Concluding remarks
 
