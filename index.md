@@ -1,4 +1,4 @@
-Hey there, thanks for visiting my blog :) I'm Junhua, an Australian computer science and maths enthusiast who just graduated high school (as of December 2020). Thus far, my main exposure to CS and maths is through olympiads. I represented Australia in the IOI (international olympiad in informatics) and also did well in the Australia Maths Olympiad (AMO). However, I'm really excited to explore a wider range of CS and Maths tools and their applications now that there are no more olympiads to do. You will find my explorations, as well as good olympiad competitive programming ideas on this blog (and maybe some other stuff too UwU). Anyway, good to meet you (>w<) 
+Hey there! I'm Junhua. As of June 2021 I have just completed the first year of my math degree at Trinity College Cambridge. Despite being a math student, my background as an informatics olympiad student in High School (I represented Australia in the IOI) means that I'm also really interested in computer science. You can find some technical and non-technical articles and discussions I wrote below.
 
 ## Posts
 Below are my posts. Click on the title to go to the post.
@@ -22,7 +22,7 @@ I take great interest in history and have occasionally wrote some stuff on it.
 
 ## AIOC
 
-I have had the cool opportunity to lecture at the Australian Informatics School of Excellence and Team Selection Schools to share some of the tricks I devised or found out about while doing Informatics. Below are my lecture notes.
+I have had the privilege to lecture at the Australian Informatics School of Excellence and Team Selection Schools to share some of the tricks I devised or found out. Below are my lecture notes.
 
 **December 2020:** 
 
