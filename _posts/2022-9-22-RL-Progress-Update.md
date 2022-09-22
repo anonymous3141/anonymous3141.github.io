@@ -76,7 +76,7 @@ Realising that neural net size mattered, I upped the size again to 100 conv filt
 - The thing is actually pretty smart sometimes. It has figured out that playing in the middle is good,  knows to cluster its tokens together and also knows to complete 4 in a row
 - But its also pretty dumb. It plays much worse as player 2 than player 1 (for some reason) but also lets the opponent complete 4 in a row pretty often (rather than blocking)
 
-But overall, I'll call this a success. It was great to finally see signs of intelligence after a lot of work.
+But overall, I'll call this a success. It was great to finally see signs of intelligence after a lot of work. Strapping the agent to MCTS (as an aid to evaluating position) gives improved performance.
 
 ### Phase 2: Self-Playing
 
@@ -95,7 +95,17 @@ REPEAT N times:
 			PLAY CURRENT AGENT AGAINST RANDOM PREVIOUS CANDIDATE
 
 	DECAY LEARNING RATE BY HALF
-	ADD CURRENT AGENT TO OPPONENT LIST
+	ADD CURRENT AGENT TO OPPONENT LIST IF IT WINS >40% of time against last opponent
 ```
 
-I'm currently experimenting this, and trying to fix problems like exploding gradients etc (with L2 regularization etc). I'll update this if something cool happens.
+After implementing this, I trained with N=5, M=10000. It turned out that gradients were exploding so I increased regularization and the value of MIN_EPSILON = 0.05. And some interesting behavior was learned: The first iteration managed to beat RandomAgent 78% of time, and the second managed to beat the first iteration of the agent 100% of time which was very cool.
+
+
+Still a lot more I need to investigate though, and I hope I can revisit this sometime in the future.
+
+### Topics worth investigating
+
+- Representation of the board (I'm currently using a 6 by 7 by 2 input. Perhaps I should represent tokens as 1 or -1 rather than using a second dimension)
+- Different learning algorithms: I'm currently using very naive stuff. Can we do better with more advanced RL algorithms?
+- Different network designs
+- And much more
