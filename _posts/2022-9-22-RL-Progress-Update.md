@@ -1,5 +1,5 @@
 ---
-excerpt: on advanced usage of segment trees
+excerpt: An update on my connect four RL project
 ---
 
 {% include head.html %}
@@ -12,7 +12,7 @@ I've recently been able to come back to it thanks to some time in the summer bre
 
 ## Some common themes to what I've done differently
 
-- After a summer software internship, I realised my old experiment code was pretty bad. It was spaghetti, dependencies everywhere and you couldn't debug it as you can't tell whats wrong. Now I've changed to a much more structured and modular design and unit tested as I wrote each module, and it works pleasingly a lot better now
+- After a summer software internship, I realised my old experiment code was pretty bad. It was spaghetti, dependencies everywhere and you couldn't debug it as you can't tell whats wrong. Now I've changed to a much more structured and modular design and unit tested as I wrote each module, and it works pleasingly a lot better now (but my god is RL hard to debug)
 - Start simply: Last time I was too quick off the bat to try apply all different kinds of RL algorithms. Now I'm working exclusively in the framework of value function policies, trained with the simplest approach, TD(1) (i.e naive monte carlo learning)
 - Tune more hyperparameters: The modular structure makes it easy for me to see what experiment choices I made, and now makes it easier me to change these around. Examples include NN architecture, epsilon decay schedules and optimizer choice. It really does make a world of difference!
 
