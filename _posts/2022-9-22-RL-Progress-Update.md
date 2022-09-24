@@ -1,4 +1,3 @@
-
 ---
 excerpt: An update on my connect four RL project
 ---
