@@ -26,7 +26,7 @@ Pytorch RNNs are very nice and handle the recurrent implementation automatically
 
 - Sequence classification (many to one): e.g sentiment classification
 - Sequence to sequence (many to many): e.g translation (by encode decode architecture)
-- Generative modelling (one to many): e.g language modelling by training RNN to model $p(x_n|x_1\ldots x_{n-1})$ and training to maximise the log likelihood of the training set 
+- Generative modelling (one to many): e.g language modelling by training RNN to model $p(x_n\mid x_1\ldots x_{n-1})$ and training to maximise the log likelihood of the training set 
 
 $$\log \prod_{i=1}^n \ \mathbb{P}(y_{j=1\ldots n}^{(i)})=\log \prod_{i=1}^n \prod_{j=1}^n\ \mathbb{P}(y_{j}^{(i)}|y_{1\ldots j-1}^{(i)})=\sum_{i,j}\log \mathbb{P}(y_{j}^{(i)}|y_{1\ldots j-1}^{(i)})$$ 
 
