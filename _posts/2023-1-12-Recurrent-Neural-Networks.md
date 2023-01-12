@@ -2,6 +2,8 @@
 excerpt: My own study notes for Recurrent Neural Networks. 
 ---
 
+{% include head.html %}
+
 # RNN study notes
 
 Recently I realised that I had never played with recurrent neural nets before and needed them for a task. So I spent the last few days learning them within the pytorch framework. Here are some brief notes I made. This is how I understand the concepts, and might not be entirely correct.
@@ -156,4 +158,4 @@ We train Model 1 with vanilla BPTT (i.e no truncation, no teacher forcing) and M
 	- This highlights importance of teacher forcing, as this is exactly the problem which it aims to fix
 	- This also highlights importance of training with some small simple examples, as our models learned well without teacher forcing when the training sequences were small
 
-Code is attached as pdf.
+The jupyter notebook is attached as pdf [here]({% link static/blog_resources/RNNs/rnns_notebook.pdf %}).
