@@ -2,18 +2,19 @@
 excerpt: My own study notes for Recurrent Neural Networks. 
 ---
 
-{% include head.html %}
-
 # RNN study notes
 
 Recently I realised that I had never played with recurrent neural nets before and needed them for a task. So I spent the last few days learning them within the pytorch framework. Here are some brief notes I made. This is how I understand the concepts, and might not be entirely correct.
 
 ## Concept of RNNs
 
-Succinct diagrams of RNNs and the tasks they might be used for can be found at https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-recurrent-neural-networks.
+Succinct diagrams of RNNs and the tasks they might be used for can be found [here](https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-recurrent-neural-networks). It really is an exceptional reference.
 
 In short, a RNN is a neural network module $f(x,h)$ that accepts a hidden state $h$ and a sequence $x_i$ and computes a new hidden state $h'$ and output $\hat y_i$. Can think of it as a fold operator on the input sequence $x_1 \ldots x_n$ and an initial hidden state $h_0$:
-$$h_{i+1}, \hat{y}_{i} = f(x_i, h_i)$$or you can think of it as something of a neural Turing machine.
+
+$$h_{i+1}, \hat{y}_{i} = f(x_i, h_i)$$
+
+or you can think of it as something of a neural Turing machine.
 
 The RNN can be extended in multiple ways, such as multilayer (a.k.a deep) RNNs (the outputs of the first RNN is fed as input into the 2nd RNN), or bidrectional RNNs (where firstly an RNN takes sequence $x$ and generates sequence of embeddings $y$ going left to right, and a second RNN takes the embedding sequence $y$ and computes a s). See the above cheatsheet for more details.
 
@@ -23,11 +24,20 @@ Pytorch RNNs are very nice and handle the recurrent implementation automatically
 
 - Sequence classification (many to one): e.g sentiment classification
 - Sequence to sequence (many to many): e.g translation (by encode decode architecture)
-- Generative modelling (one to many): e.g language modelling by training RNN to model $p(x_n|x_1\ldots x_{n-1})$ and training to maximise the log likelihood of the training set $$\log \prod_{i=1}^n \ \mathbb{P}(y_{j=1\ldots n}^{(i)})=\log \prod_{i=1}^n \prod_{j=1}^n\ \mathbb{P}(y_{j}^{(i)}|y_{1\ldots j-1}^{(i)})=\sum_{i,j}\log \mathbb{P}(y_{j}^{(i)}|y_{1\ldots j-1}^{(i)})$$ the first equality which holds by chain rule of conditional probability: $$P(A,B,C)=P(A|B,C)P(B,C)=P(A|B,C)P(B|C)P(C)$$
+- Generative modelling (one to many): e.g language modelling by training RNN to model $p(x_n|x_1\ldots x_{n-1})$ and training to maximise the log likelihood of the training set 
+
+$$\log \prod_{i=1}^n \ \mathbb{P}(y_{j=1\ldots n}^{(i)})=\log \prod_{i=1}^n \prod_{j=1}^n\ \mathbb{P}(y_{j}^{(i)}|y_{1\ldots j-1}^{(i)})=\sum_{i,j}\log \mathbb{P}(y_{j}^{(i)}|y_{1\ldots j-1}^{(i)})$$ 
+
+the first equality which holds by chain rule of conditional probability: 
+
+$$P(A,B,C)=P(A|B,C)P(B,C)=P(A|B,C)P(B|C)P(C)$$
 
 ## Training RNNs by Backproprogation through time (BPTT)
 
-Let $L=L_1+\ldots +L_n$ be the total loss and $L_i=f(y_i,\hat{y}_i)$  be the loss on prediction $i$. The aim of any backproprogation algorithm is to compute $$\frac{\partial L}{\partial W}$$
+Let $L=L_1+\ldots +L_n$ be the total loss and $L_i=f(y_i,\hat{y}_i)$  be the loss on prediction $i$. The aim of any backproprogation algorithm is to compute 
+
+$$\frac{\partial L}{\partial W}$$
+
 where $W$ are the parameters of the neural network. In this case $W$'s parameters are applied $n$ times to $h_0$ to produce $h_{1\ldots n}$ from which $L_{1\ldots n}$ is derived.
 
 In pytorch, autograd does all this for us so we just have to do the usual
@@ -42,11 +52,15 @@ and pytorch will do the rest.
 
 However there is aesthetically pleasing intepretation that comes in useful later . As the same parameters are applied repeatedly,  we can "unfold" the network as below:
 
-![Unfolded RNN]({% link static/blog_visuals/RNNs/Pasted%20image%2020230111185101.png %})
+![Unfolded RNN]({% link static/blog_resources/RNNs/unfold.png %})
 
 Where $S_i$ are copies of the original weights $W$ representing the $i$th application of the RNN to the state.
 
-Then we can use chain rule $$\frac{\partial L}{\partial W}=\sum \frac{\partial L}{\partial S_i}\frac{\partial S_i}{\partial W}=\sum \frac{\partial L}{\partial S_i}\text{id} = \sum  \frac{\partial L}{\partial S_i}$$ since $S_i$ are just copies of $W$ ($\frac{\partial L}{\partial S_i}$  is taken holding all other $S_i$  constant)
+Then we can use chain rule 
+
+$$\frac{\partial L}{\partial W}=\sum \frac{\partial L}{\partial S_i}\frac{\partial S_i}{\partial W}=\sum \frac{\partial L}{\partial S_i}\text{id} = \sum  \frac{\partial L}{\partial S_i}$$
+
+since $S_i$ are just copies of $W$ ($\frac{\partial L}{\partial S_i}$  is taken holding all other $S_i$  constant)
 
 ## Training problems and solutions
 
@@ -59,15 +73,15 @@ One way we can try fix exploding gradients by just clamping gradients in a range
 
 Another solution is to use truncated BPTT.  The idea is that the error $L_i$ of output $i$ should only have its gradients proprogated at most a certain distance. This ensures that the gradients proprogated are both meaningful and not too large, and also saves computational time.
 
-This post (https://r2rt.com/styles-of-truncated-backpropagation.html) has some good diagrams and indeed there are several ways to implement this idea. We will focus on the easier to implement method.
+This [post](https://r2rt.com/styles-of-truncated-backpropagation.html) has some good diagrams and indeed there are several ways to implement this idea. We will focus on the easier to implement method.
 
 At a algorithmic level, what we are doing is the same as slicing the sequence up into blocks of size $k$, and treating each block as a independent data point except that we initialise the hidden state with the 'summary' state of the previous blocks like below:
 
-![One To Many]({% link static/blog_visuals/RNNs/Pasted%20image%2020230111201346.png %})
+![Truncated Backprop]({% link static/blog_resources/RNNs/tbptt.png %})
 (taken from aforementioned blog post)
 
 For simplicity lets assume here that the state passed between successive layers is the same as the output (see below)
-![One To Many]({% link static/blog_visuals/RNNs/Pasted%20image%2020230111200739.png %})
+![One To Many]({% link static/blog_resources/RNNs/onetomany.png %})
 (taken from CS231 cheatsheet)
 
 Then we can implement TBPTT in pytorch like:
@@ -94,7 +108,7 @@ Even though in theory RNNs can capture arbitarily long dependencies, in practice
 
 ### Solution: LSTMs
 
-LSTMs (Long short term memory networks) are "improved RNNs" optimised for stable training (preventing memory issues). There are plenty of good articles like (https://colah.github.io/posts/2015-08-Understanding-LSTMs/) explaining it but the gist is that rather than passing 1 hidden layer between successive iterations, we pass 2 hidden states, the normal "hidden" layer and the new "cell" state instead. The "hidden" layer is now used to predict the next output, while the "cell" state is now used to persist data over longer distances, using gates to control the updating of information.
+LSTMs (Long short term memory networks) are "improved RNNs" optimised for stable training (preventing memory issues). There are plenty of good articles like Chris Olah's one [here](https://colah.github.io/posts/2015-08-Understanding-LSTMs/) explaining it but the gist is that rather than passing 1 hidden layer between successive iterations, we pass 2 hidden states, the normal "hidden" layer and the new "cell" state instead. The "hidden" layer is now used to predict the next output, while the "cell" state is now used to persist data over longer distances, using gates to control the updating of information.
 
 The pytorch implementation of LSTMs is quite nice and allows standard training tasks to be done very nicely so long as the sequences aren't too long (in which case you'd need to use TBPTT).
 
@@ -107,7 +121,7 @@ We may use teacher forcing whenever some or all of the input (e.g recurrent stat
 	(2) predicted by prior iterations of the RNN at inference (test) time
 For instance:
 - A RNN is learning to execute an algorithm. The output of the $i-1$th step is then operated on by the RNN in the $i$th step (see neural algorithmic reasoning: the only difference there is that the problem scenarios are first encoded into high dimensional space and the recurrent 'processor' operates in that space)
-- A RNN is converting a sequence of embeddings into a sentence (this happens in the encode-decode architecture of the language translation). The previous predicted word is fed alongside the current embedding position as well as previous hidden state to predict the next word (see https://pytorch.org/tutorials/intermediate/seq2seq_translation_tutorial.html) in the sentence
+- A RNN is converting a sequence of embeddings into a sentence (this happens in the encode-decode architecture of the language translation). The previous predicted word is fed alongside the current embedding position as well as previous hidden state to predict the next word (see [this pytorch tutorial](https://pytorch.org/tutorials/intermediate/seq2seq_translation_tutorial.html))  in the sentence
 
 The idea of teacher forcing is that we may substitute the part of the input which is generated by the RNN with the 'true' input: the 'true' input is given, the RNN is ran once on it and we can immediately provide feedback on this single step of the RNN by decoding the output and comparing with the target. For an example, if teacher forcing is used, it is often used for all steps of the example.
 
