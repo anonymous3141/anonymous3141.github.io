@@ -42,7 +42,7 @@ and pytorch will do the rest.
 
 However there is aesthetically pleasing intepretation that comes in useful later . As the same parameters are applied repeatedly,  we can "unfold" the network as below:
 
-![Unfolded RNN]({% link static/blog_visuals/RNNs/Pasted+image+20230111185101.png %})
+![Unfolded RNN]({% link static/blog_visuals/RNNs/Pasted%20image%20230111185101.png %})
 
 Where $S_i$ are copies of the original weights $W$ representing the $i$th application of the RNN to the state.
 
@@ -63,11 +63,11 @@ This post (https://r2rt.com/styles-of-truncated-backpropagation.html) has some g
 
 At a algorithmic level, what we are doing is the same as slicing the sequence up into blocks of size $k$, and treating each block as a independent data point except that we initialise the hidden state with the 'summary' state of the previous blocks like below:
 
-![One To Many]({% link static/blog_visuals/RNNs/Pasted+image+20230111201346.png %})
+![One To Many]({% link static/blog_visuals/RNNs/Pasted%20image%2020230111201346.png %})
 (taken from aforementioned blog post)
 
 For simplicity lets assume here that the state passed between successive layers is the same as the output (see below)
-![One To Many]({% link static/blog_visuals/RNNs/Pasted+image+20230111200739.png %})
+![One To Many]({% link static/blog_visuals/RNNs/Pasted%20image%2020230111200739.png %})
 (taken from CS231 cheatsheet)
 
 Then we can implement TBPTT in pytorch like:
