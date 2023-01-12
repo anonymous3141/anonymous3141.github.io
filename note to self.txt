@@ -1,0 +1,8 @@
+Much easier to edit locally and then commit & push after
+
+Use newline before display math.
+Do not include spaces in images.
+
+Latex:
+- use \mid instead of pipe (|) 
+- https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions
