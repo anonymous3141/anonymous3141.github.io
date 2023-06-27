@@ -1,4 +1,4 @@
-Hey there! I'm Junhua. As of June 2021 I have just completed the first year of my math degree at Trinity College Cambridge. Despite being a math student, my background as an informatics olympiad student in High School (I represented Australia in the IOI) means that I'm also really interested in computer science. You can find some technical and non-technical articles and discussions I wrote below.
+Hey there! I'm Junhua. As of June 2023 I have just completed the second year of my math degree at Trinity College Cambridge. Despite being a math student, my background as an informatics olympiad student in High School (I represented Australia in the IOI) means that I'm also really interested in computer science. You can find some technical and non-technical articles and discussions I wrote below.
 
 ## Posts
 Below are my posts. Click on the title to go to the post.
