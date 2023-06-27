@@ -42,36 +42,36 @@ Intuitively, two points of regularization are introduced:
 
 ## Setup
 - We have a dataset $\mathcal{X}=\textbf{x}_{1}\ldots \textbf{x}_n$ 
-- We **assume** that the data is sampled from a **latent variable model: 
+- We **assume** that the data is sampled from a **latent variable model**: 
 	1. A latent variable $\textbf{z}$ is sampled from some prior $p(\textbf{z})$ 
-	2. $\textbf{x}$ is sampled according to a posterior distribution $p(x|z)$ 
+	2. $\textbf{x}$ is sampled according to a posterior distribution $p(x\mid  z)$ 
 - This gives us both a **Joint distribution** $p(\textbf{x,z})$ and a distribution $p(\textbf{x})$ for $\textbf{x}$ 
 - Our ultimate goal is for a given hypothesis space $\mathcal{P}$, find the best fitting distribution $p^*\in \mathcal{P}$  for the data (we will make this problem well defined & tractable by defining 'best' and the hypothesis space wisely)
 
 ### Defining the Goal 
-- Define the hypothesis space to be the parametric family $\mathcal{P} = \{p_\theta(\textbf{x,z})|\theta \in \mathbb{R}^n\}$  
+- Define the hypothesis space to be the parametric family $\mathcal{P} = \{p_\theta(\textbf{x,z})\mid  \theta \in \mathbb{R}^n\}$  
 	- To define the family, in the spirit of the latent variable setup define
 		- $p_\theta(\textbf{z}) := N(0,\textbf{I})$ is fixed
-		- $p_\theta(\textbf{x|z})$ is some parametrized function of $\textbf{z}$ (we will define it fully later)
+		- $p_\theta(\textbf{x\mid  z})$ is some parametrized function of $\textbf{z}$ (we will define it fully later)
 
-- The standard definition of 'best' when it comes to fitting distributions is to minimize the KL-divergence to the goal distribution i.e $KL(p_\theta || p)$ where $p$ is the true distribution 
+- The standard definition of 'best' when it comes to fitting distributions is to minimize the KL-divergence to the goal distribution i.e $KL(p_\theta \| p)$ where $p$ is the true distribution 
 	- Optimizing KL-divergence from an empirical dataset is trying to maximize log likelihoods: 
 		$$\max_{\theta} \sum_\chi \log p_{\theta} (\textbf{x}_i)$$
-	- However, $p_\theta(\textbf{x}_i)=\int p_\theta(\textbf{x|z}) p_\theta(\textbf{z}) d\textbf{z}$ which is intractable to estimate, let alone optimize against when $\textbf{z}$ is high-dimensional. 
+	- However, $p_\theta(\textbf{x}_i)=\int p_\theta(\textbf{x\mid  z}) p_\theta(\textbf{z}) d\textbf{z}$ which is intractable to estimate, let alone optimize against when $\textbf{z}$ is high-dimensional. 
 	- So we consider an related objective, the ELBO to maximize instead. This requires some new moving parts to be introduced
 
 **ELBO Loss**
 The key equation/result/definition is stated as follows:
 
 Let $p,q$ be any two joint distributions on $\textbf{x,z}$ with suitable support, and write $p(\textbf{x}),q(\textbf{x})$ to denote the marginal distributions. Then for any fixed $\textbf{x}$,
-$$\log p(\textbf{x}) = \mathcal{L}(\textbf{x},p,q)+D_{KL}(q(\textbf{z}|\textbf{x})\ \| \ p(\textbf{z}|\textbf{x}))$$ where $$\mathcal{L}(\textbf{x},p,q) := \mathbb{E}_{q(\textbf{z|x})} [\log \frac{p(\textbf{x},\textbf{z})}{q(\textbf{z}|\textbf{x})}]$$is called the ELBO (Evidence Lower Bound) (note in above equation the randomness is in $\textbf{z}$) 
+$$\log p(\textbf{x}) = \mathcal{L}(\textbf{x},p,q)+D_{KL}(q(\textbf{z}\mid  \textbf{x})\ \| \ p(\textbf{z}\mid  \textbf{x}))$$ where $$\mathcal{L}(\textbf{x},p,q) := \mathbb{E}_{q(\textbf{z\mid  x})} [\log \frac{p(\textbf{x},\textbf{z})}{q(\textbf{z}\mid  \textbf{x})}]$$is called the ELBO (Evidence Lower Bound) (note in above equation the randomness is in $\textbf{z}$) 
 
 Note that the name "lower bound" comes from the fact that $D_{KL}\geq 0$, which implies $\log p \geq \mathcal{L}$ for all $\textbf{x}$. 
 
 **Applying ELBO** 
 Recall that our grand objective is to find the best $\theta$ for our hypothesis $p_\theta$.
 
-We further introduce the parametrized distribution $q_{\phi}(\textbf{z}|\textbf{x})$ as per definition of ELBO.
+We further introduce the parametrized distribution $q_{\phi}(\textbf{z}\mid  \textbf{x})$ as per definition of ELBO.
 
 Then the ELBO is now a function of $\textbf{x}, \phi$ and $\theta$. Previously, we'd have liked to maximize log-likelihood, so we now content ourselves to maximizing the total ELBO 	$$\max_{\theta, \phi} \sum \log ELBO(\textbf{x}_i,\phi, \theta)$$
 This allows us to finally define the learning procedure
@@ -92,15 +92,15 @@ We will approximate the gradient $\nabla_{\theta \text{ or } \phi} ELBO$ by rand
 
 Observe the distribution $q$ does not depend on $\theta$ so can just move the $\nabla_\theta$ inside the expectation to yield an estimator of $\nabla_\theta ELBO$. In particular, if we take $k$ samples $\textbf{z}^{(i)}$ then we can estimate:
 $$\tilde{\nabla}_\theta ELBO(\textbf{x}; \theta, \phi)=\begin{align}
-\frac{1}{k}\sum_{i=1}^k {\nabla_\theta \log \frac{p_\theta(\textbf{x}, \mathbf{z^{(i)}})}{q_\lambda(\mathbf{z^{(i)}}|\textbf{x}).}} \text{, where } \mathbf{z^{(i)}} \sim q_\phi(\textbf{z}|\textbf{x}). 
+\frac{1}{k}\sum_{i=1}^k {\nabla_\theta \log \frac{p_\theta(\textbf{x}, \mathbf{z^{(i)}})}{q_\lambda(\mathbf{z^{(i)}}\mid  \textbf{x}).}} \text{, where } \mathbf{z^{(i)}} \sim q_\phi(\textbf{z}\mid  \textbf{x}). 
 \end{align}$$
 
 For $\nabla_\phi ELBO$ it is not so simple, as $q$ depends on $\theta$. One way we can go about things is via the REINFORCE (log-derivative) trick from reinforcement learning. This isn't too bad but suffers in practice from high variance (the trick is stated clearly in [3])
 
 Instead, we can first reparametrize (this is the *reparameterization trick*) $q$ 
-by writing, $\textbf{z|x} = T(\epsilon, f_\phi(\textbf{x}))$ where $\epsilon$ is a fixed random variable and $T$ is a deterministic transformation.
+by writing, $\mathbf{z\mid   x} = T(\epsilon, f_\phi(\textbf{x}))$ where $\epsilon$ is a fixed random variable and $T$ is a deterministic transformation.
 
-Often, the normal distribution is used, which gives us$$q(\textbf{z}|\textbf{x})=N(z|\mathbf{\mu}_\phi(\textbf{x}), \mathbf{\Sigma}_\phi(\textbf{x}))$$ where $\mu,\Sigma$ are the two outputs of a neural network. Often $\Sigma$ is taken to be $\sigma_\phi(x)^2I$ for simplicity (and this works well in practice). In general, the original paper [0] states that any location-scale family suffices.
+Often, the normal distribution is used, which gives us$$q(\textbf{z}\mid \textbf{x})=N(z\mid \mathbf{\mu}_\phi(\textbf{x}), \mathbf{\Sigma}_\phi(\textbf{x}))$$ where $\mu,\Sigma$ are the two outputs of a neural network. Often $\Sigma$ is taken to be $\sigma_\phi(x)^2I$ for simplicity (and this works well in practice). In general, the original paper [0] states that any location-scale family suffices.
 
 Then $\textbf{z} = \mu_\phi(x)+\sigma_\phi(x)\epsilon$ where $\epsilon\sim N(0,I)$  
 
@@ -110,20 +110,20 @@ and as the distribution is now independent of $\phi$ we can estimate the gradien
 
 ### Recovering the intuition: Concrete realization of the VAE
 
-We finally come back to defining $p(\textbf{x|z})$. In the spirit of the reparameterization trick, we define $$p(\textbf{x}|\textbf{z}):=N(\mathbf{\mu}_\theta(\textbf{x}),I)$$ as per [4] (the original paper demands that the variance is parametrized also by a neural network, but most implementations fix it to be $I$).
+We finally come back to defining $p(\mathbf{x\mid z})$. In the spirit of the reparameterization trick, we define $$p(\textbf{x}\mid \textbf{z}):=N(\mathbf{\mu}_\theta(\textbf{x}),I)$$ as per [4] (the original paper demands that the variance is parametrized also by a neural network, but most implementations fix it to be $I$).
 
 Calculations in original paper ([0]) gives an alternative expression for ELBO:
-$$\mathcal{L(\textbf{x},\theta,\phi)}=-D_{KL}(q_\phi(\textbf{z}|\textbf{x})\|p_\theta(\textbf{z}))+\mathbb{E}_{q_\phi(\textbf{z}|\textbf{x})}[\log p_\theta(\textbf{x}|\textbf{z})]$$
+$$\mathcal{L(\textbf{x},\theta,\phi)}=-D_{KL}(q_\phi(\textbf{z}\mid \textbf{x})\|p_\theta(\textbf{z}))+\mathbb{E}_{q_\phi(\textbf{z}\mid \textbf{x})}[\log p_\theta(\textbf{x}\mid \textbf{z})]$$
 
-As $p$ has constant variance, we then have for some constant $C<0$, $$\mathbb{E}_{q_\phi(\textbf{z}|\textbf{x})}[\log p_\theta(\textbf{x}|\textbf{z})]=C\mathbb{E}_{q_\phi(\textbf{z}|\textbf{x})}[\|\textbf{x}-\mu_\theta(\textbf{z})^2\|]$$
+As $p$ has constant variance, we then have for some constant $C<0$, $$\mathbb{E}_{q_\phi(\textbf{z}\mid \textbf{x})}[\log p_\theta(\textbf{x}\mid \textbf{z})]=C\mathbb{E}_{q_\phi(\textbf{z}\mid \textbf{x})}[\|\textbf{x}-\mu_\theta(\textbf{z})^2\|]$$
 which is akin to the reconstruction loss of ordinary autoencoders. 
 
-Thus maximizing $\mathcal{L}$ is equal to minimizing $$D_{KL}(q_\phi(\textbf{z}|\textbf{x})\|p_\theta(\textbf{z}))+\beta\mathbb{E}_{q_\phi(\textbf{z}|\textbf{x})}[\|\textbf{x}-\mu_\theta(\textbf{z})^2\|]$$where $\beta=-C>0$. 
+Thus maximizing $\mathcal{L}$ is equal to minimizing $$D_{KL}(q_\phi(\textbf{z}\mid \textbf{x})\|p_\theta(\textbf{z}))+\beta\mathbb{E}_{q_\phi(\textbf{z}\mid \textbf{x})}[\|\textbf{x}-\mu_\theta(\textbf{z})^2\|]$$where $\beta=-C>0$. 
 
 And thus, we have recovered the loss function from the *Intuition* section where $q$ coincides with the encoder and $p$ the decoder. The overall procedure is thus simply to repeatedly estimate the gradients and take a step in the direction of the estimated gradient (which just corresponds to ``elbo_estimate.backwards()`` in pytorch). 
 
 **Note**:
-It is important that the KL divergence is analytically computable for the loss to be tractable to compute. However, when $p_\theta$ is a fixed Gaussian $N(0,I)$, the KL can be analytically computed (see [0] section 3 & appendices) to be $$\frac{1}{2}\sum_{j=1}^J (\mu_j^2+\sigma_j^2-1-\log(\sigma_j^2))$$where $\sigma_j,\mu_j$ are the variances and means of $q_\phi(\textbf{z|x})$ (computed by each neural network) and $J$ is the size of the hidden dimension. 
+It is important that the KL divergence is analytically computable for the loss to be tractable to compute. However, when $p_\theta$ is a fixed Gaussian $N(0,I)$, the KL can be analytically computed (see [0] section 3 & appendices) to be $$\frac{1}{2}\sum_{j=1}^J (\mu_j^2+\sigma_j^2-1-\log(\sigma_j^2))$$where $\sigma_j,\mu_j$ are the variances and means of $q_\phi(\textbf{z\mid x})$ (computed by each neural network) and $J$ is the size of the hidden dimension. 
 
 # Addendum: Practicalities
 
