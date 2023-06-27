@@ -61,7 +61,7 @@ Intuitively, two points of regularization are introduced:
 
 	- However, 
 
-$$p_\theta(\textbf{x}_i)=\int p_\theta(\textbf{x\mid  z}) p_\theta(\textbf{z}) d\textbf{z}$$ 
+$$p_\theta(\textbf{x}_i)=\int p_\theta(\mathbf{x\mid  z}) p_\theta(\textbf{z}) d\textbf{z}$$ 
 
 is intractable to estimate, let alone optimize against when $\textbf{z}$ is high-dimensional. 
 	- So we consider an related objective, the ELBO to maximize instead. This requires some new moving parts to be introduced
@@ -110,12 +110,14 @@ $$\begin{align}
 Now ELBO is intractable to compute exactly. However, we will now show that its gradient can be estimated from the definition by sampling for a given $\textbf{x}$. 
 
 **Optimizing an expected value & reparameterization trick**
+
+
 We will approximate the gradient $\nabla_{\theta \text{ or } \phi} ELBO$ by random sampling, and then using it as if it was the 'actual' gradient.
 
 Observe the distribution $q$ does not depend on $\theta$ so can just move the $\nabla_\theta$ inside the expectation to yield an estimator of $\nabla_\theta ELBO$. In particular, if we take $k$ samples $\textbf{z}^{(i)}$ then we can estimate:
 
 $$\tilde{\nabla}_\theta ELBO(\textbf{x}; \theta, \phi)=\begin{align}
-\frac{1}{k}\sum_{i=1}^k {\nabla_\theta \log \frac{p_\theta(\textbf{x}, \mathbf{z^{(i)}})}{q_\lambda(\mathbf{z^{(i)}}\mid  \textbf{x}).}} \text{, where } \mathbf{z^{(i)}} \sim q_\phi(\textbf{z}\mid  \textbf{x}). 
+\frac{1}{k}\sum_{i=1}^k {\nabla_\theta \log \frac{p_\theta(\textbf{x}, \mathbf{z^{(i)}})}{q_\lambda(\mathbf{z^{(i)}}\mid  \textbf{x}).}} \text{, where } \mathbf{z^{(i)}} \sim q_\phi(\textbf{z}\mid  \textbf{x}) 
 \end{align}$$
 
 
@@ -129,8 +131,12 @@ Often, the normal distribution is used, which gives us$$q(\textbf{z}\mid \textbf
 
 Then $\textbf{z} = \mu_\phi(x)+\sigma_\phi(x)\epsilon$ where $\epsilon\sim N(0,I)$  
 
-Then we can reframe the expectation with $\epsilon$ as the random variable to get $$ELBO(\phi, \theta, \textbf{x}) = \int f(\epsilon) \frac{p(\textbf{x}, T(\epsilon, f_\phi(\textbf{x})))}{q(T(\epsilon, f_\phi(\textbf{x})), \textbf{x})}\ d\epsilon=\begin{align}= \mathbb{E}_{\epsilon} \left[\log \frac{p_\theta(\textbf{x}, T(\epsilon; \lambda))}{q_\lambda(T(\epsilon; \lambda))}\right]
+Then we can reframe the expectation with $\epsilon$ as the random variable to get 
+
+$$ELBO(\phi, \theta, \textbf{x}) = \int f(\epsilon) \frac{p(\textbf{x}, T(\epsilon, f_\phi(\textbf{x})))}{q(T(\epsilon, f_\phi(\textbf{x})), \textbf{x})}\ d\epsilon=\begin{align}= \mathbb{E}_{\epsilon} \left[\log \frac{p_\theta(\textbf{x}, T(\epsilon; \lambda))}{q_\lambda(T(\epsilon; \lambda))}\right]
 \end{align}$$
+
+
 and as the distribution is now independent of $\phi$ we can estimate the gradient $\nabla_\phi ELBO$ in same fashion as for $\theta$.
 
 ### Recovering the intuition: Concrete realization of the VAE
@@ -140,15 +146,22 @@ We finally come back to defining $p(\mathbf{x\mid z})$. In the spirit of the rep
 Calculations in original paper ([0]) gives an alternative expression for ELBO:
 $$\mathcal{L(\textbf{x},\theta,\phi)}=-D_{KL}(q_\phi(\textbf{z}\mid \textbf{x})\|p_\theta(\textbf{z}))+\mathbb{E}_{q_\phi(\textbf{z}\mid \textbf{x})}[\log p_\theta(\textbf{x}\mid \textbf{z})]$$
 
-As $p$ has constant variance, we then have for some constant $C<0$, $$\mathbb{E}_{q_\phi(\textbf{z}\mid \textbf{x})}[\log p_\theta(\textbf{x}\mid \textbf{z})]=C\mathbb{E}_{q_\phi(\textbf{z}\mid \textbf{x})}[\|\textbf{x}-\mu_\theta(\textbf{z})^2\|]$$
+As $p$ has constant variance, we then have for some constant $C<0$, 
+
+$$\mathbb{E}_{q_\phi(\textbf{z}\mid \textbf{x})}[\log p_\theta(\textbf{x}\mid \textbf{z})]=C\mathbb{E}_{q_\phi(\textbf{z}\mid \textbf{x})}[\|\textbf{x}-\mu_\theta(\textbf{z})^2\|]$$
+
 which is akin to the reconstruction loss of ordinary autoencoders. 
 
-Thus maximizing $\mathcal{L}$ is equal to minimizing $$D_{KL}(q_\phi(\textbf{z}\mid \textbf{x})\|p_\theta(\textbf{z}))+\beta\mathbb{E}_{q_\phi(\textbf{z}\mid \textbf{x})}[\|\textbf{x}-\mu_\theta(\textbf{z})^2\|]$$where $\beta=-C>0$. 
+Thus maximizing $\mathcal{L}$ is equal to minimizing 
+
+$$D_{KL}(q_\phi(\textbf{z}\mid \textbf{x})\|p_\theta(\textbf{z}))+\beta\mathbb{E}_{q_\phi(\textbf{z}\mid \textbf{x})}[\|\textbf{x}-\mu_\theta(\textbf{z})^2\|]$$
+
+where $\beta=-C>0$. 
 
 And thus, we have recovered the loss function from the *Intuition* section where $q$ coincides with the encoder and $p$ the decoder. The overall procedure is thus simply to repeatedly estimate the gradients and take a step in the direction of the estimated gradient (which just corresponds to ``elbo_estimate.backwards()`` in pytorch). 
 
 **Note**:
-It is important that the KL divergence is analytically computable for the loss to be tractable to compute. However, when $p_\theta$ is a fixed Gaussian $N(0,I)$, the KL can be analytically computed (see [0] section 3 & appendices) to be $$\frac{1}{2}\sum_{j=1}^J (\mu_j^2+\sigma_j^2-1-\log(\sigma_j^2))$$where $\sigma_j,\mu_j$ are the variances and means of $q_\phi(\textbf{z\mid x})$ (computed by each neural network) and $J$ is the size of the hidden dimension. 
+It is important that the KL divergence is analytically computable for the loss to be tractable to compute. However, when $p_\theta$ is a fixed Gaussian $N(0,I)$, the KL can be analytically computed (see [0] section 3 & appendices) to be $$\frac{1}{2}\sum_{j=1}^J (\mu_j^2+\sigma_j^2-1-\log(\sigma_j^2))$$where $\sigma_j,\mu_j$ are the variances and means of $q_\phi(\mathbf{z\mid x})$ (computed by each neural network) and $J$ is the size of the hidden dimension. 
 
 # Addendum: Practicalities
 
@@ -164,7 +177,9 @@ We apply VAEs to the MNIST dataset
 	
 ### Posterior collapse
 Variational autoencoders (VAEs) and other generative models often suffer from posterior collapse, which is a phenomenon in which the learned latent space becomes uninformative. For example, when trained with suboptimal hyper-parameters the VAE decoder learns to produce a single image regardless of the latent code.
+
 ![Collapsed Sample]({% link static/blog_resources/VAEs/collapsed_sample.png %})
+
 This is likely due to the KL loss term providing excessive amounts of regularization, leading to over-smoothing of the data.
 
 To tackle this issue, we vary the ratios of the reconstruction & KL loss components in the overall loss. I eventually settled on $0.01\times KL + \text{reconstruction}$. In the theoretical framework, this corresponds to setting $\beta = 100$.
@@ -173,7 +188,7 @@ This allows us to produce fairly convincing samples such as those shown below:
 
 ![Good Samples]({% link static/blog_resources/VAEs/good_samples.png %})
 
-Fancier solutions such as [6] exist.
+Fancier solutions such as described in [6] exist for this issue as well.
 
 The colab jupyter notebook is attached as pdf [here]({% link static/blog_resources/VAEs/Variational_AutoEncoders_Colab.pdf %}).
 
