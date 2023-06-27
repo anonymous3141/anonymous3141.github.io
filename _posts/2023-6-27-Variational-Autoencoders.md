@@ -52,35 +52,57 @@ Intuitively, two points of regularization are introduced:
 - Define the hypothesis space to be the parametric family $\mathcal{P} = \{p_\theta(\textbf{x,z})\mid  \theta \in \mathbb{R}^n\}$  
 	- To define the family, in the spirit of the latent variable setup define
 		- $p_\theta(\textbf{z}) := N(0,\textbf{I})$ is fixed
-		- $p_\theta(\textbf{x\mid  z})$ is some parametrized function of $\textbf{z}$ (we will define it fully later)
+		- $p_\theta(\mathbf{x\mid  z})$ is some parametrized function of $\textbf{z}$ (we will define it fully later)
 
 - The standard definition of 'best' when it comes to fitting distributions is to minimize the KL-divergence to the goal distribution i.e $KL(p_\theta \| p)$ where $p$ is the true distribution 
-	- Optimizing KL-divergence from an empirical dataset is trying to maximize log likelihoods: 
+	- Optimizing KL-divergence from an empirical dataset is trying to maximize log likelihoods:
+ 
 		$$\max_{\theta} \sum_\chi \log p_{\theta} (\textbf{x}_i)$$
-	- However, $p_\theta(\textbf{x}_i)=\int p_\theta(\textbf{x\mid  z}) p_\theta(\textbf{z}) d\textbf{z}$ which is intractable to estimate, let alone optimize against when $\textbf{z}$ is high-dimensional. 
+
+	- However, 
+
+$$p_\theta(\textbf{x}_i)=\int p_\theta(\textbf{x\mid  z}) p_\theta(\textbf{z}) d\textbf{z}$$ 
+
+is intractable to estimate, let alone optimize against when $\textbf{z}$ is high-dimensional. 
 	- So we consider an related objective, the ELBO to maximize instead. This requires some new moving parts to be introduced
 
 **ELBO Loss**
+
+
 The key equation/result/definition is stated as follows:
 
 Let $p,q$ be any two joint distributions on $\textbf{x,z}$ with suitable support, and write $p(\textbf{x}),q(\textbf{x})$ to denote the marginal distributions. Then for any fixed $\textbf{x}$,
-$$\log p(\textbf{x}) = \mathcal{L}(\textbf{x},p,q)+D_{KL}(q(\textbf{z}\mid  \textbf{x})\ \| \ p(\textbf{z}\mid  \textbf{x}))$$ where $$\mathcal{L}(\textbf{x},p,q) := \mathbb{E}_{q(\textbf{z\mid  x})} [\log \frac{p(\textbf{x},\textbf{z})}{q(\textbf{z}\mid  \textbf{x})}]$$is called the ELBO (Evidence Lower Bound) (note in above equation the randomness is in $\textbf{z}$) 
+
+$$\log p(\textbf{x}) = \mathcal{L}(\textbf{x},p,q)+D_{KL}(q(\textbf{z}\mid  \textbf{x})\ \| \ p(\textbf{z}\mid  \textbf{x}))$$ 
+
+where 
+
+$$\mathcal{L}(\textbf{x},p,q) := \mathbb{E}_{q(\mathbf{z\mid  x})} [\log \frac{p(\textbf{x},\textbf{z})}{q(\textbf{z}\mid  \textbf{x})}]$$
+
+is called the ELBO (Evidence Lower Bound) (note in above equation the randomness is in $\textbf{z}$) 
 
 Note that the name "lower bound" comes from the fact that $D_{KL}\geq 0$, which implies $\log p \geq \mathcal{L}$ for all $\textbf{x}$. 
 
 **Applying ELBO** 
+
+
 Recall that our grand objective is to find the best $\theta$ for our hypothesis $p_\theta$.
 
 We further introduce the parametrized distribution $q_{\phi}(\textbf{z}\mid  \textbf{x})$ as per definition of ELBO.
 
-Then the ELBO is now a function of $\textbf{x}, \phi$ and $\theta$. Previously, we'd have liked to maximize log-likelihood, so we now content ourselves to maximizing the total ELBO 	$$\max_{\theta, \phi} \sum \log ELBO(\textbf{x}_i,\phi, \theta)$$
+Then the ELBO is now a function of $\textbf{x}, \phi$ and $\theta$. Previously, we'd have liked to maximize log-likelihood, so we now content ourselves to maximizing the total ELBO 
+
+$$\max_{\theta, \phi} \sum \log ELBO(\textbf{x}_i,\phi, \theta)$$
+
+
 This allows us to finally define the learning procedure
 
 1. REPEAT:
 	1. Let minibatch $\mathcal{B}=\{\textbf{x}_1\ldots \textbf{x}_k\}$ 
 	2. DO 1 gradient update step:
-		 $$
-\begin{align}
+
+
+$$\begin{align}
     \phi &\gets \phi + \tilde{\nabla}_\phi \sum_{\textbf{x} \in \mathcal{B}} ELBO(\textbf{x}; \theta, \phi) \\
     \theta &\gets \theta + \tilde{\nabla}_\theta \sum_{\textbf{x} \in \mathcal{B}} ELBO(\textbf{x}; \theta, \phi),
 \end{align}$$
@@ -91,9 +113,12 @@ Now ELBO is intractable to compute exactly. However, we will now show that its g
 We will approximate the gradient $\nabla_{\theta \text{ or } \phi} ELBO$ by random sampling, and then using it as if it was the 'actual' gradient.
 
 Observe the distribution $q$ does not depend on $\theta$ so can just move the $\nabla_\theta$ inside the expectation to yield an estimator of $\nabla_\theta ELBO$. In particular, if we take $k$ samples $\textbf{z}^{(i)}$ then we can estimate:
+
 $$\tilde{\nabla}_\theta ELBO(\textbf{x}; \theta, \phi)=\begin{align}
 \frac{1}{k}\sum_{i=1}^k {\nabla_\theta \log \frac{p_\theta(\textbf{x}, \mathbf{z^{(i)}})}{q_\lambda(\mathbf{z^{(i)}}\mid  \textbf{x}).}} \text{, where } \mathbf{z^{(i)}} \sim q_\phi(\textbf{z}\mid  \textbf{x}). 
 \end{align}$$
+
+
 
 For $\nabla_\phi ELBO$ it is not so simple, as $q$ depends on $\theta$. One way we can go about things is via the REINFORCE (log-derivative) trick from reinforcement learning. This isn't too bad but suffers in practice from high variance (the trick is stated clearly in [3])
 
