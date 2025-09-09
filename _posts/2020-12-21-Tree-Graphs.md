@@ -3,7 +3,7 @@ layout: post
 title: On Tree graphs
 date: 2020-12-21
 description: On Tree graphs
-tags: 
+tags: informatics
 categories: 
 #chart:
 #  plotly: true
