@@ -24,7 +24,7 @@ latest_posts:
   limit: 3 # leave blank to include all the blog posts
 ---
 
-I enjoy solving fun problems, especially if they involve math and computers. Currently, I am interested in machine learning, with a particular emphasis on generative modelling and its applications. Problems I am interested in include:
+I enjoy solving problems, especially if they involve math and computers. Currently, I work in machine learning, with a particular emphasis on generative modelling and its applications. Problems that interest me include:
 
 - What are the most effective approaches for modelling different (multi)-modalities of data — diffusion, autoregressive, or more novel alternatives?
 

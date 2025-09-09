@@ -4,7 +4,7 @@ title: Sequential Controlled Langevin Diffusions
 description: with background image
 img: assets/img/scld.jpg
 #importance: 1
-#category: work
+category: paper
 related_publications: true
 ---
 

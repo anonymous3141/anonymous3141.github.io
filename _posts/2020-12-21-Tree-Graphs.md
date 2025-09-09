@@ -11,9 +11,13 @@ categories:
 
 # Algorithms regarding to Trees
 Trees is one of the greatest areas in graph theory covered in informatics contests, and is increasing in popularity rapidly. In this blog we cover some tree algorithms.
+
+
 ### Notes
 - Let $\mathcal{T}$ denote a Tree
 - Familiarity is assumed with fundamental algorithms of trees like LCA and important principles like Euler tour and diameter.
+
+
 ## Two Lemmas on the diameter
 1. If node sets $X$ and $Y$ are diameters of a tree, then $X\cap Y\neq \emptyset$.
 2. For any node $v\in \mathcal{T}$, the furthest node $u$ from $v$ is the endpoint of at least 1 diameter path.
@@ -108,8 +112,6 @@ Thus, we can effortlessly find the important nodes of the virtual tree, and it r
 **Approach 2: for set of paths**
 
 If we merely build the virtual tree for the set of path endpoints, then it must be that the actual virtual forest is a subset of the edges of this virtual tree. We simply must mark the edges which are relevant within this virtual tree. Thus we have the problem of being given the virtual tree of n nodes and calculating the union of paths on the tree in $\tilde{O}(n)$. Lets assume all paths go from ancestor (head) to descendant (tail) (otherwise split each path in two at the LCA). Euler traverse the tree, and when the head of a path is encountered insert the tail to a set that is keyed by euler tour. To decide whether an edge is on we merely have to check if there is an active node within the subtree of the edge. Now each path's tail is only inserted and deleted once, so complexity is $O(nlogn)$. 
-
-*The euler tour sweep*
 
 Lastly, it should we mentioned that the virtual tree is a good tool in module tasks to build up a tree as more information is obtained.
 
