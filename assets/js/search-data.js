@@ -60,7 +60,7 @@ ninja.data = [{
           title: 'Sequential Controlled Langevin Diffusions',
           description: "with background image",
           section: "Projects",handler: () => {
-              window.location.href = "/projects/1_project/";
+              window.location.href = "/projects/SCLD/";
             },},{
         id: 'social-email',
         title: 'email',
