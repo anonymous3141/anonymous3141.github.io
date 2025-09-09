@@ -25,7 +25,7 @@ ninja.data = [{
           },
         },{id: "nav-projects",
           title: "projects",
-          description: "A growing collection of your cool projects.",
+          description: "My Projects",
           section: "Navigation",
           handler: () => {
             window.location.href = "/projects/";
@@ -58,7 +58,7 @@ ninja.data = [{
           description: "",
           section: "News",},{id: "projects-sequential-controlled-langevin-diffusions",
           title: 'Sequential Controlled Langevin Diffusions',
-          description: "with background image",
+          description: "https://arxiv.org/abs/2412.07081",
           section: "Projects",handler: () => {
               window.location.href = "/projects/SCLD/";
             },},{
